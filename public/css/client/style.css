@@ -1,0 +1,12 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+header {
+    background-color: #2c44a7;
+}
+
+header .nav li a {
+    color: white;
+    font-weight: 600;
+}
