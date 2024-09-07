@@ -1,12 +1,60 @@
-body {
-    font-family: 'Quicksand', sans-serif;
+html {
+    overflow-y: scroll;
 }
 
+body {
+    font-family: 'Quicksand', sans-serif;
+    padding-top: 60px;
+}
+
+/* Fix giao diện giao diện bị xê dịch khi hiển thị thông báo */
+body.swal2-shown {
+    overflow-y: hidden !important;
+    padding-right: 0 !important;
+}
+
+/* Header */
 header {
     background-color: #2c44a7;
+    position: sticky;
+    top: 0;
+    /* z-index: 1030; */
 }
 
 header .nav li a {
     color: white;
     font-weight: 600;
 }
+
+header .nav li a:hover {
+    color: rgb(155, 172, 168);
+}
+
+.btn-outline-light:hover {
+    background-color: transparent;
+}
+/* End Header */
+
+/* Register */
+.divider:after,
+.divider:before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.register .form-register small {
+    color: #e74c3c;
+    position: relative;
+    bottom: 15px;
+    left: 45px;
+    display: none;
+    font-size: 13px;
+}
+
+.register .form-register small.error {
+    display: block;
+}
+
+/* End Register */
