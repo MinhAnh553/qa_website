@@ -7,4 +7,8 @@ Router.route('/register')
     .get(userController.registerPage)
     .post(userController.registerUser);
 
+Router.route('/login')
+    .get(userController.loginPage)
+    .post(userController.loginUser);
+
 export const userRoute = Router;

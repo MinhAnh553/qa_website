@@ -44,7 +44,7 @@ header .nav li a:hover {
     background: #eee;
 }
 
-.register .form-register small {
+.register .form-user small {
     color: #e74c3c;
     position: relative;
     bottom: 15px;
@@ -53,7 +53,7 @@ header .nav li a:hover {
     font-size: 13px;
 }
 
-.register .form-register small.error {
+.register .form-user small.error {
     display: block;
 }
 

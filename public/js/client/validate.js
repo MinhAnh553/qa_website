@@ -1,51 +1,75 @@
-export function checkValidate() {
+export function checkValidate(type) {
     const fullNameEle = document.getElementById('fullName');
     const emailEle = document.getElementById('email');
     const passwordEle = document.getElementById('password');
     const rePasswordEle = document.getElementById('rePassword');
 
-    let fullNameValue = fullNameEle.value.trim();
-    let emailValue = emailEle.value.trim();
-    let passwordValue = passwordEle.value;
-    let rePasswordValue = rePasswordEle.value;
-
     let isCheck = true;
 
-    if (fullNameValue === '') {
-        setError('fullName', 'Họ tên không được để trống');
-        isCheck = false;
-    } else {
-        setSuccess('fullName');
-    }
+    if (type == 'login') {
+        let emailValue = emailEle.value.trim();
+        let passwordValue = passwordEle.value;
 
-    if (emailValue === '') {
-        setError('email', 'Email không được để trống');
-        isCheck = false;
-    } else if (!isEmail(emailValue)) {
-        setError('email', 'Email không đúng định dạng');
-        isCheck = false;
-    } else {
-        setSuccess('email');
-    }
+        if (emailValue === '') {
+            setError('email', 'Email không được để trống');
+            isCheck = false;
+        } else if (!isEmail(emailValue)) {
+            setError('email', 'Email không đúng định dạng');
+            isCheck = false;
+        } else {
+            setSuccess('email');
+        }
 
-    if (passwordValue === '') {
-        setError('password', 'Mật khẩu không được để trống');
-        isCheck = false;
-    } else {
-        let passwordError = isPassword(passwordValue);
-        if (passwordError) {
-            setError('password', passwordError);
+        if (passwordValue === '') {
+            setError('password', 'Mật khẩu không được để trống');
             isCheck = false;
         } else {
             setSuccess('password');
         }
     }
 
-    if (passwordValue !== rePasswordValue) {
-        setError('rePassword', 'Mật khẩu nhập lại không khớp.');
-        isCheck = false;
-    } else {
-        setSuccess('rePassword');
+    if (type == 'register') {
+        let fullNameValue = fullNameEle.value.trim();
+        let emailValue = emailEle.value.trim();
+        let passwordValue = passwordEle.value;
+        let rePasswordValue = rePasswordEle.value;
+
+        if (fullNameValue === '') {
+            setError('fullName', 'Họ tên không được để trống');
+            isCheck = false;
+        } else {
+            setSuccess('fullName');
+        }
+
+        if (emailValue === '') {
+            setError('email', 'Email không được để trống');
+            isCheck = false;
+        } else if (!isEmail(emailValue)) {
+            setError('email', 'Email không đúng định dạng');
+            isCheck = false;
+        } else {
+            setSuccess('email');
+        }
+
+        if (passwordValue === '') {
+            setError('password', 'Mật khẩu không được để trống');
+            isCheck = false;
+        } else {
+            let passwordError = isPassword(passwordValue);
+            if (passwordError) {
+                setError('password', passwordError);
+                isCheck = false;
+            } else {
+                setSuccess('password');
+            }
+        }
+
+        if (passwordValue !== rePasswordValue) {
+            setError('rePassword', 'Mật khẩu nhập lại không khớp.');
+            isCheck = false;
+        } else {
+            setSuccess('rePassword');
+        }
     }
 
     return isCheck;
