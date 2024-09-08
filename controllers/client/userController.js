@@ -6,6 +6,12 @@ import userService from '../../services/client/userService.js';
 // [GET] /user/register
 const registerPage = async (req, res) => {
     try {
+        const accessToken = req.cookies?.accessToken;
+        if (accessToken) {
+            res.redirect(`/`);
+            return;
+        }
+
         res.render('client/pages/user/register', {
             pageTitle: 'Đăng ký',
         });
@@ -39,6 +45,12 @@ const registerUser = async (req, res) => {
 // [GET] /user/login
 const loginPage = async (req, res) => {
     try {
+        const accessToken = req.cookies?.accessToken;
+        if (accessToken) {
+            res.redirect(`/`);
+            return;
+        }
+
         res.render('client/pages/user/login', {
             pageTitle: 'Đăng nhập',
         });

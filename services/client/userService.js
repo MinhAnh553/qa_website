@@ -27,22 +27,11 @@ const createNew = async (data, res) => {
             const accessToken = await JwtProvider.generateToken(
                 userInfo,
                 process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
-                '1h',
-                // '14 days'
-            );
-            const refreshToken = await JwtProvider.generateToken(
-                userInfo,
-                process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
+                // '1h',
                 '14 days',
             );
 
             res.cookie('accessToken', accessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'none',
-                maxAge: ms('14 days'),
-            });
-            res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'none',
@@ -80,22 +69,11 @@ const login = async (data, res) => {
             const accessToken = await JwtProvider.generateToken(
                 userInfo,
                 process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
-                '1h',
-                // '14 days',
-            );
-            const refreshToken = await JwtProvider.generateToken(
-                userInfo,
-                process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
+                // '1h',
                 '14 days',
             );
 
             res.cookie('accessToken', accessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'none',
-                maxAge: ms('14 days'),
-            });
-            res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'none',
@@ -114,39 +92,4 @@ const login = async (data, res) => {
     }
 };
 
-const refreshToken = async (req, res) => {
-    try {
-        const refreshToken = req.cookies?.refreshToken;
-        const refreshTokenDecoded = await JwtProvider.verifyToken(
-            refreshToken,
-            process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
-        );
-        const userInfo = {
-            id: refreshTokenDecoded.id,
-            email: refreshTokenDecoded.email,
-            fullName: refreshTokenDecoded.fullName,
-        };
-        const accessToken = await JwtProvider.generateToken(
-            userInfo,
-            process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
-            '1h',
-        );
-
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            maxAge: ms('14 days'),
-        });
-
-        res.status(StatusCodes.OK).json({
-            accessToken,
-        });
-    } catch (error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: 'Refresh accessToken failed!',
-        });
-    }
-};
-
-export default { createNew, login, refreshToken };
+export default { createNew, login };

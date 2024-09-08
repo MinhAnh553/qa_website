@@ -7,6 +7,7 @@ import cors from 'cors';
 import * as database from './config/database.js';
 import path from 'path';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 import { clientRoute } from './routes/client/indexRoute.js';
 
@@ -21,6 +22,9 @@ const port = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
+// Use Cookie
+app.use(cookieParser());
 
 // Config view
 app.set('views', path.join(process.cwd(), 'views'));
