@@ -5,6 +5,9 @@ html {
 body {
     font-family: 'Quicksand', sans-serif;
     padding-top: 60px;
+    min-height: 100vh; /* Đảm bảo container chiếm toàn bộ chiều cao viewport */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Fix giao diện giao diện bị xê dịch khi hiển thị thông báo */
@@ -34,6 +37,10 @@ header .nav li a:hover {
     background-color: transparent;
 }
 /* End Header */
+
+.content-wrap {
+    flex: 1;
+}
 
 /* Register */
 .divider:after,

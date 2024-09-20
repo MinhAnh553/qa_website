@@ -17,7 +17,12 @@ header(class="py-3 fixed-top")
                     input(type="search" style="outline: none; box-shadow: none" class="form-control border-0" placeholder="Tìm kiếm câu hỏi, môn học,..." autocomplete="off")
             div(class="text-end ms-auto")
                 if(user)
-                    h1 #{user.fullName}
+                    div(class="d-flex align-items-center gap-2" style="color: white; font-weight: 600;")
+                        span(class="d-flex align-items-center justify-content-center rounded-circle border " style="width:40px;height:40px;font-size:20px") AF
+                        span(class="font-weight-bold text-white opacity-header text-truncate align-text-top d-none d-xl-inline-block mw-100") Angela Freeman
+                  
+                            
+
                 else
                     a(href="/user/login")
                         button(type="button" class="btn btn-outline-light me-2")
