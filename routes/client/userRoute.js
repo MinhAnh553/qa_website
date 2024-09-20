@@ -12,4 +12,6 @@ Router.route('/login')
     .get(userController.loginPage)
     .post(userController.loginUser);
 
+Router.route('/logout').get(userController.logoutUser);
+
 export const userRoute = Router;

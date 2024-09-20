@@ -36,6 +36,28 @@ header .nav li a:hover {
 .btn-outline-light:hover {
     background-color: transparent;
 }
+
+.dropdown-hover:hover > .dropdown-menu-hover {
+    display: block;
+    width: 250px;
+    opacity: 1;
+    background-color: #fff;
+    box-shadow: 0px 15px 125px rgba(0, 0, 0, 0.22);
+    border-radius: 6px;
+    z-index: 9999;
+    text-align: left;
+    transition: all 0.4s ease;
+}
+
+.dropdown-hover:hover > .dropdown-menu-hover li a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.dropdown-hover > .dropdown-toggle:active {
+    pointer-events: none;
+}
 /* End Header */
 
 .content-wrap {

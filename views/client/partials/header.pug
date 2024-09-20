@@ -1,4 +1,4 @@
-header(class="py-3 fixed-top")
+header(class="fixed-top")
     div(class="container")
         div(class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start")
             a(href="/" class="col-1 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none")
@@ -15,11 +15,22 @@ header(class="py-3 fixed-top")
                     span(class="input-group-text bg-white")
                         i(class="fas fa-search")
                     input(type="search" style="outline: none; box-shadow: none" class="form-control border-0" placeholder="Tìm kiếm câu hỏi, môn học,..." autocomplete="off")
-            div(class="text-end ms-auto")
+            div(class="text-end ms-auto dropdown dropdown-hover p-3")
                 if(user)
-                    div(class="d-flex align-items-center gap-2" style="color: white; font-weight: 600;")
-                        span(class="d-flex align-items-center justify-content-center rounded-circle border " style="width:40px;height:40px;font-size:20px") AF
-                        span(class="font-weight-bold text-white opacity-header text-truncate align-text-top d-none d-xl-inline-block mw-100") Angela Freeman
+                    div(class="d-flex align-items-center gap-2 " style="color: white; font-weight: 600;")
+                        span(class="d-flex align-items-center justify-content-center rounded-circle border " style="width:40px;height:40px;font-size:20px") MA
+                        span(class="font-weight-bold text-white opacity-header text-truncate align-text-top d-none d-xl-inline-block mw-100") #{user.fullName}
+   
+                    ul(class="dropdown-menu dropdown-menu-hover" aria-labelledby="dropdownMenuButton")
+                        li
+                            a(class="dropdown-item" href="#")
+                                i(class="fa-solid fa-user me-2")
+                                | Thông tin
+                        li
+                            a(class="dropdown-item" href="/user/logout")
+                                i(class="fa-solid fa-right-from-bracket me-2")
+                                | Đăng xuất
+
                   
                             
 

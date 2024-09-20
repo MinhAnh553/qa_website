@@ -81,9 +81,22 @@ const loginUser = async (req, res) => {
     }
 };
 
+// [GET] /user/logout
+const logoutUser = async (req, res) => {
+    try {
+        res.clearCookie('accessToken');
+        res.redirect('/user/login');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     registerPage,
     registerUser,
     loginPage,
     loginUser,
+    logoutUser,
 };
