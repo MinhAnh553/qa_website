@@ -4,6 +4,7 @@ const isAuthorized = async (req, res, next) => {
     const accessToken = req.cookies?.accessToken;
     if (!accessToken) {
         res.redirect(`/user/login`);
+        return;
     }
 
     try {
@@ -14,6 +15,7 @@ const isAuthorized = async (req, res, next) => {
         next();
     } catch (error) {
         res.redirect(`/user/login`);
+        return;
     }
 };
 

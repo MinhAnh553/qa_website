@@ -1,16 +1,28 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+import chatService from '../services/client/chatService.js';
+
 dotenv.config();
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-const generativeTextOnly = async (message) => {
+const generativeTextOnly = async (userId, message) => {
     try {
+        // 10 tin nhắn gần nhất + 1 tin người dùng mới gửi
+        const chatsHistory = await chatService.getChatByRoomChatID(userId);
+        let conversationHistory = [];
+        chatsHistory.forEach((chat) => {
+            conversationHistory.push({
+                role: chat.user_id == 'assistant' ? 'assistant' : 'user',
+                content: chat.content,
+            });
+        });
+
         const completion = await openai.chat.completions.create({
             model: 'gpt-4o-mini-2024-07-18', // Model GPT
-            messages: [{ role: 'user', content: message }],
+            messages: conversationHistory,
         });
 
         const result = completion.choices[0].message.content;
@@ -62,45 +74,3 @@ const generativeTextOnly = async (message) => {
 export default {
     generativeTextOnly,
 };
-
-// import OpenAI from 'openai';
-
-// const configuration = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-
-// // Mảng lưu trữ lịch sử cuộc trò chuyện (tin nhắn người dùng và phản hồi AI)
-// let conversationHistory = [
-//   { role: 'system', content: 'You are a helpful assistant.' }, // Tin nhắn hệ thống ban đầu (nếu cần)
-// ];
-
-// const generativeTextWithContext = async (message) => {
-//   try {
-//     const openai = new OpenAI(configuration);
-
-//     // Thêm tin nhắn của người dùng vào lịch sử cuộc trò chuyện
-//     conversationHistory.push({ role: 'user', content: message });
-
-//     // Gửi yêu cầu với toàn bộ lịch sử trò chuyện
-//     const completion = await openai.chat.completions.create({
-//       model: 'gpt-4o-mini-2024-07-18',
-//       messages: conversationHistory,
-//     });
-
-//     // Phản hồi của AI
-//     const aiResponse = completion.choices[0].message;
-
-//     // Lưu phản hồi từ AI vào lịch sử trò chuyện
-//     conversationHistory.push({ role: 'assistant', content: aiResponse.content });
-
-//     // Trả về kết quả phản hồi từ AI
-//     return aiResponse.content;
-//   } catch (error) {
-//     console.error('Error:', error);
-//     return 'Lỗi Server!';
-//   }
-// };
-
-// export default {
-//   generativeTextWithContext,
-// };

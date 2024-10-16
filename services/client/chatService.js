@@ -3,34 +3,34 @@ import userModel from '../../models/userModel.js';
 import chatSocket from '../../sockets/client/chatSocket.js';
 
 const getChats = async (res) => {
-    // Socket
+    // Run Socket
     chatSocket.run(res);
 
+    const userId = res.locals.user.id;
+
     const chats = await chatModel.find({
+        room_chat_id: userId,
         deleted: false,
     });
 
-    // if (chats) {
-    //     for (const chat of chats) {
-    //         const user = await userModel
-    //             .findOne({
-    //                 _id: chat.user_id,
-    //                 deleted: false,
-    //             })
-    //             .select('fullName');
-
-    //         chat.infoUser = user;
-    //     }
-    // }
     return chats;
 };
 
-const saveChat = async (userId, data) => {
-    const chat = new chatModel({
-        user_id: userId,
-        content: data.content,
-    });
+const saveChat = async (data) => {
+    const chat = new chatModel(data);
     await chat.save();
 };
 
-export default { getChats, saveChat };
+const getChatByRoomChatID = async (room_chat_id) => {
+    const chats = await chatModel
+        .find({
+            room_chat_id: room_chat_id,
+            deleted: false,
+        })
+        .sort({ createdAt: -1 })
+        .limit(10);
+
+    return chats.reverse();
+};
+
+export default { getChats, saveChat, getChatByRoomChatID };
