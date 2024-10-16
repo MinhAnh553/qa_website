@@ -62,6 +62,7 @@ header .nav li a:hover {
 
 .content-wrap {
     flex: 1;
+    background-color: #f5f5f5;
 }
 
 /* Register */
@@ -87,3 +88,94 @@ header .nav li a:hover {
 }
 
 /* End Register */
+
+/* Chat AI */
+#chat2 .form-control {
+    border-color: transparent;
+}
+
+#chat2 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.chat .card-body {
+    overflow-y: auto;
+}
+
+.chat .card-body p {
+    max-width: max-content;
+    margin-left: auto;
+    font-size: 16px;
+}
+
+.chat .card-body .chat-by-ai p {
+    color: black !important;
+    background-color: #f0f0f0 !important;
+    margin-top: 5px;
+}
+
+.inner-form button {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+/* End Chat AI */
+
+/* Box typing */
+.box-typing {
+    position: relative;
+}
+
+.box-typing .inner-dots {
+    position: relative;
+    height: 30px;
+    width: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    border-radius: 45px;
+    margin-top: 2px;
+}
+
+.box-typing .inner-dots span {
+    animation: blink 1.5s infinite;
+    height: 5px;
+    width: 5px;
+    background-color: #252525;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3px;
+}
+
+.box-typing .inner-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.box-typing .inner-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.1;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+/* Box typing */

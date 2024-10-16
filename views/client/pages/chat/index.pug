@@ -1,0 +1,64 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main  
+    section
+        div(class="container py-5")
+            div(class="row d-flex justify-content-center")
+                div(class="col-md-10 col-lg-8 col-xl-6")
+                    #chat2(class="card chat")
+                        div(class="card-header d-flex justify-content-between align-items-center p-3")
+                            h5(class="mb-0") Chat
+                        div(class="card-body" data-mdb-perfect-scrollbar-init style="position: relative; height: 400px" my-id=user.id)
+                            //- div(class="d-flex flex-row justify-content-start")
+                            //-     img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;")
+                            //-     div
+                            //-         p(class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary") Hi
+                            //-         p(class="small ms-3 mb-3 rounded-3 text-muted") 23:58
+                            //- div(class="d-flex flex-row justify-content-end mb-4 pt-1")
+                            //-     div
+                            //-         p(class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary") How are you doing?
+                            //-         p(class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end") 00:06
+                            //-     img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp" alt="avatar 1" style="width: 45px; height: 100%;")
+                            if(chats)
+                                each chat in chats
+                                    div(class=(chat.user_id == user.id ? "d-flex flex-row justify-content-end pt-1" :  "d-flex flex-row justify-content-start chat-by-ai"))
+                                        div
+                                            if(chat.content)
+                                                p(class="small p-2 me-3 mb-1 mt-1 text-white rounded-3 bg-primary") 
+                                                    | !{chat.content}
+                                    
+                                div(class="inner-list-typing")
+                                    //- div(class="box-typing")
+                                    //-     div(class="inner-dots")
+                                    //-         span
+                                    //-         span
+                                    //-         span
+
+                        form(
+                            class="inner-form"
+                            action=""
+                        ) 
+                            div(class="card-footer text-muted d-flex justify-content-start align-items-center p-3")
+                            
+                                img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 3" style="width: 40px; height: 100%;")
+                            
+                                input(
+                                    class="form-control form-control-lg"
+                                    type="text"
+                                    placeholder="Nhập nội dung..."
+                                    name="content"    
+                                )
+                                a(class="ms-1 text-muted" href="#!")
+                                    i(class="fas fa-paperclip")
+                                //- a(class="ms-3 text-muted" href="#!")
+                                //-     i(class="fas fa-smile")
+                                button(class="ms-3")
+                                    i(class="fas fa-paper-plane")
+
+block script
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/client/socket.js")
+    script(type="module" src="/js/client/chat.js") 
+
+    

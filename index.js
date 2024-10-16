@@ -9,6 +9,9 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 
+import { Server } from 'socket.io';
+import { createServer } from 'node:http';
+
 import { clientRoute } from './routes/client/indexRoute.js';
 
 // env
@@ -54,6 +57,11 @@ database.connect();
 // Route
 app.use(clientRoute);
 
-app.listen(port, () => {
+// Socket
+const server = createServer(app);
+const io = new Server(server);
+global._io = io;
+
+server.listen(port, () => {
     console.log(`Project back-end running at http://localhost:${port}...`);
 });
