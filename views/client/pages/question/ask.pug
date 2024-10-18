@@ -1,0 +1,68 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main  
+
+    main(class="pt-lg-5")
+        div(class="container")
+            // Grid row
+            div(class="row gx-xl-5")
+                // Grid column
+                div(class="card col-xl-8 mb-lg-5 pr-xl-4")
+                    div(class="card-body")
+                        h3(class="mb-4") Đặt câu hỏi về vấn đề của bạn
+                        form(
+                            action="/question/ask"
+                            method="POST"
+                            enctype="multipart/form-data"
+                        )
+                            div(class="form-group")
+                                textarea(
+                                    type="text"
+                                    class="form-control tinymce"
+                                    name="description"
+                                    rows="5"
+                                )
+                            div(
+                                class="form-group"
+                                upload-image
+                            )
+                                label(for="images") Ảnh
+                                input(
+                                    type="file"
+                                    class="form-control"
+                                    id="images"
+                                    name="images"
+                                    accept="image/*"
+                                    upload-image-input
+                                )
+                                image(
+                                    class="image-preview"
+                                    src=""
+                                    upload-image-preview
+                                )
+
+                            div(class="form-group mt-2")
+                                button(
+                                    type="submit"
+                                    class="btn btn-primary"
+                                ) Gửi câu hỏi
+                        
+                    
+
+                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block")
+                    
+                    div(class="card mb-5")
+                        // Card header
+                        div(class="card-header border-0 fw-bold" style="font-size: 20px;") Bảng xếp hạng
+                        hr(class="m-0")
+                        // Card content
+                        div(class="card-body")
+                            div(class="w-100 d-flex justify-content-between")
+                                p(class="mb-0 pt-2")
+                                    i(class=" mr-2")
+
+block script
+    script(src="/tinymce/tinymce.min.js")
+    script(src="/js/client/tinymce-config.js") 
+                    

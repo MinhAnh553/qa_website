@@ -16,6 +16,10 @@ body.swal2-shown {
     padding-right: 0 !important;
 }
 
+button {
+    font-size: 14px !important;
+}
+
 /* Header */
 header {
     background-color: #2c44a7;
@@ -179,3 +183,45 @@ header .nav li a:hover {
     }
 }
 /* Box typing */
+/* Sort Document */
+.question-card {
+    border: 1px solid #dee0e1;
+}
+
+.btn-select {
+    font-size: 14px !important;
+}
+.btn-select.active {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    background-color: #f4f5fa !important;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-bottom: 2px #2c44a7 solid !important;
+    color: #000 !important;
+}
+
+.box-number-reply {
+    border: 2px solid #12ad50;
+    color: #12ad50 !important;
+    padding: 3px 7px;
+    border-radius: 0.375rem;
+}
+
+.box-number-reply.done {
+    color: #fff !important;
+    background-color: #12ad50;
+}
+
+.image-preview {
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.image-preview[src=''] {
+    display: none;
+}

@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 import session from 'express-session';
 import flash from 'express-flash';
 import cors from 'cors';
+import moment from 'moment';
+import 'moment-timezone';
+import 'moment/locale/vi.js';
 
 import * as database from './config/database.js';
 import path from 'path';
@@ -11,7 +14,6 @@ import cookieParser from 'cookie-parser';
 
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
-
 import { clientRoute } from './routes/client/indexRoute.js';
 
 // env
@@ -53,6 +55,18 @@ app.use(cors());
 
 // Database
 database.connect();
+
+// Biến
+moment.locale('vi');
+app.locals.moment = moment;
+
+/* New Route to the TinyMCE Node module */
+app.use(
+    '/tinymce',
+    express.static(
+        path.join(path.join(process.cwd()), 'node_modules', 'tinymce'),
+    ),
+);
 
 // Route
 app.use(clientRoute);

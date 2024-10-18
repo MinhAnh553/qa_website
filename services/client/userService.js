@@ -65,6 +65,7 @@ const login = async (data, res) => {
                 id: user._id,
                 email: user.email,
                 fullName: user.fullName,
+                avatar: user.avatar,
             };
             const accessToken = await JwtProvider.generateToken(
                 userInfo,

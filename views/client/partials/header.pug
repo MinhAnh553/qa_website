@@ -7,7 +7,7 @@ header(class="fixed-top")
                 li
                     a(href="/" class="nav-link px-2") Trang Chủ
                 li
-                    a(href="#" class="nav-link px-2") Đặt Câu Hỏi
+                    a(href="/question/ask" class="nav-link px-2") Đặt Câu Hỏi
                 li
                     a(href="/chat" class="nav-link px-2") Chat GPT
             form(class="col-5")
@@ -18,7 +18,7 @@ header(class="fixed-top")
             div(class="text-end ms-auto dropdown dropdown-hover p-3")
                 if(user)
                     div(class="d-flex align-items-center gap-2 " style="color: white; font-weight: 600;")
-                        span(class="d-flex align-items-center justify-content-center rounded-circle border " style="width:40px;height:40px;font-size:20px") MA
+                        img(src=(user.avatar ? user.avatar : "/images/avatar.png") class="d-flex align-items-center justify-content-center rounded-circle border " style="width:40px;height:40px;font-size:20px")
                         span(class="font-weight-bold text-white opacity-header text-truncate align-text-top d-none d-xl-inline-block mw-100") #{user.fullName}
    
                     ul(class="dropdown-menu dropdown-menu-hover" aria-labelledby="dropdownMenuButton")
