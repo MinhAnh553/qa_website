@@ -225,3 +225,19 @@ header .nav li a:hover {
 .image-preview[src=''] {
     display: none;
 }
+
+.button-vote {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-vote.action {
+    color: green;
+    border-color: green;
+}

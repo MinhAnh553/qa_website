@@ -86,3 +86,60 @@ if (uploadImage) {
         }
     });
 }
+
+// Detail question
+const questionsCard = document.querySelectorAll('.question-card');
+if (questionsCard) {
+    for (const questionCard of questionsCard) {
+        const questionId = questionCard.querySelector('[question_id]');
+        const btnReply = questionCard.querySelector('.btn-reply');
+
+        if (questionId || btnReply) {
+            questionId.addEventListener('click', (e) => {
+                window.location.href = `/question/${questionId.getAttribute(
+                    'question_id',
+                )}`;
+            });
+
+            btnReply.addEventListener('click', (e) => {
+                window.location.href = `/question/${questionId.getAttribute(
+                    'question_id',
+                )}`;
+            });
+        }
+    }
+}
+
+// Vote reply
+const buttonVote = document.querySelectorAll('.button-vote');
+if (buttonVote) {
+    for (const button of buttonVote) {
+        button.addEventListener('click', async (e) => {
+            let idReply = button.getAttribute('id_reply');
+            let type = 'dislike';
+            if (button.hasAttribute('vote-like')) {
+                type = 'like';
+            }
+            const url = window.location.href;
+            const id = url.match(/\/question\/([a-zA-Z0-9]+)/)[1];
+
+            const data = {
+                idQuestion: id,
+                idReply: idReply,
+                type: type,
+            };
+
+            const response = await fetch(`/question/reply/vote`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response) {
+                location.reload();
+            }
+        });
+    }
+}

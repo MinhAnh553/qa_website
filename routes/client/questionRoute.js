@@ -17,4 +17,14 @@ Router.route('/ask')
         questionController.createAsk,
     );
 
+Router.route('/:id').get(questionController.detailPage);
+
+Router.route('/reply/vote').post(questionController.voteReply);
+
+Router.route('/reply/:id').post(
+    fileUpload.single('images'),
+    uploadCloudMiddleware.uploadCloud,
+    questionController.postReply,
+);
+
 export const questionRoute = Router;

@@ -11,12 +11,27 @@ const questionSchema = new mongoose.Schema(
                 user_id: String,
                 description: String,
                 images: Array,
-                vote: [
-                    {
-                        user_id: String,
-                    },
-                ],
-                createAt: {
+                vote: {
+                    like: [
+                        {
+                            user_id: String,
+                            createdAt: {
+                                type: Date,
+                                default: Date.now,
+                            },
+                        },
+                    ],
+                    dislike: [
+                        {
+                            user_id: String,
+                            createdAt: {
+                                type: Date,
+                                default: Date.now,
+                            },
+                        },
+                    ],
+                },
+                createdAt: {
                     type: Date,
                     default: Date.now,
                 },
