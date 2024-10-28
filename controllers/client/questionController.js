@@ -111,7 +111,7 @@ const postReply = async (req, res) => {
     } catch (error) {}
 };
 
-// [POST] /question/reply/:id
+// [POST] /question/reply/vote
 const voteReply = async (req, res) => {
     try {
         const result = await questionService.voteReply(req, res);
@@ -133,6 +133,20 @@ const voteReply = async (req, res) => {
     }
 };
 
+// [GET] /question/complete/:id
+const completeQuestion = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await questionService.completeQuestion(id);
+
+        res.redirect('back');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     questionPage,
     detailPage,
@@ -140,4 +154,5 @@ export default {
     createAsk,
     postReply,
     voteReply,
+    completeQuestion,
 };

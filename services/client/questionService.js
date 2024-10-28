@@ -116,8 +116,21 @@ const voteReply = async (req, res) => {
     }
 };
 
+const completeQuestion = async (id) => {
+    await questionModel.updateOne(
+        {
+            _id: id,
+            deleted: false,
+        },
+        {
+            status: 1,
+        },
+    );
+};
+
 export default {
     getQuestionbyId,
     postReply,
     voteReply,
+    completeQuestion,
 };

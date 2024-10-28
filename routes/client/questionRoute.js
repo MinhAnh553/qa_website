@@ -27,4 +27,6 @@ Router.route('/reply/:id').post(
     questionController.postReply,
 );
 
+Router.route('/complete/:id').get(questionController.completeQuestion);
+
 export const questionRoute = Router;

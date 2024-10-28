@@ -21,7 +21,8 @@ block main
                                             a(href="#" target="_blank") #{question.user.fullName}
                                         span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
                                 if(question.user_id == user.id)
-                                    button(class="btn btn-danger" action-success-question type="button") Hoàn thành
+                                    a(href=`/question/complete/${question.id}`)
+                                        button(class="btn btn-danger" action-success-question type="button") Hoàn thành
 
                             // Card content
                             div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
