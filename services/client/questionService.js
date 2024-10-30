@@ -1,11 +1,66 @@
 import questionModel from '../../models/questionModel.js';
+import userModel from '../../models/userModel.js';
 
-const getQuestionbyId = async (id) => {
+const getQuestionbyId = async (req, res) => {
+    const userId = res.locals.user.id;
+    const id = req.params.id;
+    const sort = req.query.sort || 'vote';
+
     const question = await questionModel.findOne({
         _id: id,
         // status: { $ne: 0 },
         deleted: false,
     });
+
+    if (sort === 'vote') {
+        // Sắp xếp theo lượt vote (like - dislike)
+        question.reply.sort((a, b) => {
+            const aVotes = a.vote.like.length - a.vote.dislike.length;
+            const bVotes = b.vote.like.length - b.vote.dislike.length;
+            return bVotes - aVotes; // Sắp xếp từ cao đến thấp
+        });
+    } else if (sort === 'newest') {
+        // Sắp xếp theo createdAt mới nhất
+        question.reply.sort((a, b) => b.createdAt - a.createdAt);
+    } else if (sort === 'oldest') {
+        // Sắp xếp theo createdAt cũ nhất
+        question.reply.sort((a, b) => a.createdAt - b.createdAt);
+    }
+
+    const user = await userModel
+        .findOne({
+            _id: question.user_id,
+            deleted: false,
+        })
+        .select('fullName avatar');
+
+    question.user = user;
+
+    for (const reply of question.reply) {
+        const user = await userModel
+            .findOne({
+                _id: reply.user_id,
+                deleted: false,
+            })
+            .select('fullName avatar');
+
+        // Thông tin người trả lời
+        reply.user = user;
+
+        let vote = 'none';
+        for (const like of reply.vote.like) {
+            if (like.user_id == userId) {
+                vote = 'like';
+            }
+        }
+
+        for (const dislike of reply.vote.dislike) {
+            if (dislike.user_id == userId) {
+                vote = 'dislike';
+            }
+        }
+        reply.userVote = vote;
+    }
 
     return question;
 };

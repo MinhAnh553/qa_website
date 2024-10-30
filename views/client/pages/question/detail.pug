@@ -54,10 +54,18 @@ block main
                         div(class="question-card card mt-3 mb-3")
                             // Detail
                             div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
-                                div(class="d-flex justify-content-between" style="width: 100%;")
+                                div(class="d-flex justify-content-between align-items-center" style="width: 100%;")
                                     strong
-                                        span(class="") #{question.reply.length} câu trả lời
-                                    span(style="font-size: 13px") Sắp xếp:
+                                        span(style="font-size: 18px") #{question.reply.length} câu trả lời
+                                    div(class="d-flex justify-content-center align-items-center gap-3")
+                                        span(style="font-size: 15px") Sắp xếp:
+                                        div 
+                                            select(class="form-select" id="select-sort-reply")
+                                                option(selected value="vote") Nhiều vote
+                                                option(value="newest") Câu trả lời mới nhất
+                                                option(value="oldest") Câu trả lời cũ nhất
+
+
                             
                             each reply in question.reply
                                 // Card header

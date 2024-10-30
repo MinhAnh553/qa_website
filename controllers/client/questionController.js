@@ -33,43 +33,7 @@ const questionPage = async (req, res) => {
 // [GET] /question/:id
 const detailPage = async (req, res) => {
     try {
-        const userId = res.locals.user.id;
-        const id = req.params.id;
-        const question = await questionService.getQuestionbyId(id);
-        const user = await userModel
-            .findOne({
-                _id: question.user_id,
-                deleted: false,
-            })
-            .select('fullName avatar');
-
-        question.user = user;
-
-        for (const reply of question.reply) {
-            const user = await userModel
-                .findOne({
-                    _id: reply.user_id,
-                    deleted: false,
-                })
-                .select('fullName avatar');
-
-            // Thông tin người trả lời
-            reply.user = user;
-
-            let vote = 'none';
-            for (const like of reply.vote.like) {
-                if (like.user_id == userId) {
-                    vote = 'like';
-                }
-            }
-
-            for (const dislike of reply.vote.dislike) {
-                if (dislike.user_id == userId) {
-                    vote = 'dislike';
-                }
-            }
-            reply.userVote = vote;
-        }
+        const question = await questionService.getQuestionbyId(req, res);
 
         res.render('client/pages/question/detail', {
             pageTitle: 'Hỏi đáp',

@@ -143,3 +143,29 @@ if (buttonVote) {
         });
     }
 }
+
+// Sort Reply
+const selectSortReply = document.querySelector('#select-sort-reply');
+if (selectSortReply) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentSort = urlParams.get('sort') || 'vote';
+    selectSortReply.value = currentSort;
+
+    selectSortReply.addEventListener('change', (e) => {
+        const value = selectSortReply.value;
+        if (window.location.hash) {
+            history.replaceState(null, '', window.location.href.split('#')[0]);
+        }
+        const currentUrl = new URL(window.location.href);
+
+        currentUrl.searchParams.set('sort', value);
+
+        window.location.href = currentUrl.toString() + '#sort';
+    });
+
+    window.addEventListener('load', () => {
+        if (window.location.hash === '#sort') {
+            selectSortReply.scrollIntoView({ block: 'center' });
+        }
+    });
+}
