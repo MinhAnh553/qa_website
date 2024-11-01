@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-include ../../mixins/box-head.pug
+include ../../mixins/ranking.pug
 
 block main  
 
@@ -53,14 +53,8 @@ block main
                 div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block")
                     
                     div(class="card mb-5")
-                        // Card header
-                        div(class="card-header border-0 fw-bold" style="font-size: 20px;") Bảng xếp hạng
-                        hr(class="m-0")
-                        // Card content
-                        div(class="card-body")
-                            div(class="w-100 d-flex justify-content-between")
-                                p(class="mb-0 pt-2")
-                                    i(class=" mr-2")
+                        // Bảng xếp hạng
+                        +ranking(ranking)
 
 block script
     script(src="/tinymce/tinymce.min.js")

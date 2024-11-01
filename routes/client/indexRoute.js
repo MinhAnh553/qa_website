@@ -16,6 +16,6 @@ Router.use('/user', userRoute);
 
 Router.use('/chat', authMiddleware.isAuthorized, chatRoute);
 
-Router.use('/question', authMiddleware.isAuthorized, questionRoute);
+Router.use('/question', questionRoute);
 
 export const clientRoute = Router;

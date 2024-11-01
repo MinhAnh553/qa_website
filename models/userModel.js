@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema(
         email: String,
         password: String,
         avatar: String,
+        points: {
+            type: Number,
+            default: 0,
+        },
         status: {
             type: String,
             default: 'active',

@@ -2,7 +2,7 @@ import questionModel from '../../models/questionModel.js';
 import userModel from '../../models/userModel.js';
 
 const getQuestionbyId = async (req, res) => {
-    const userId = res.locals.user.id;
+    const userId = res.locals.user?.id;
     const id = req.params.id;
     const sort = req.query.sort || 'vote';
 
@@ -47,19 +47,21 @@ const getQuestionbyId = async (req, res) => {
         // Thông tin người trả lời
         reply.user = user;
 
-        let vote = 'none';
-        for (const like of reply.vote.like) {
-            if (like.user_id == userId) {
-                vote = 'like';
+        if (userId) {
+            let vote = 'none';
+            for (const like of reply.vote.like) {
+                if (like.user_id == userId) {
+                    vote = 'like';
+                }
             }
-        }
 
-        for (const dislike of reply.vote.dislike) {
-            if (dislike.user_id == userId) {
-                vote = 'dislike';
+            for (const dislike of reply.vote.dislike) {
+                if (dislike.user_id == userId) {
+                    vote = 'dislike';
+                }
             }
+            reply.userVote = vote;
         }
-        reply.userVote = vote;
     }
 
     return question;
@@ -79,6 +81,13 @@ const postReply = async (req, res) => {
         {
             $push: { reply: data },
         },
+    );
+
+    await userModel.updateOne(
+        {
+            _id: data.user_id,
+        },
+        { $inc: { points: +1 } },
     );
 };
 
@@ -130,7 +139,33 @@ const voteReply = async (req, res) => {
             },
         };
 
-        // Kiểm tra nếu người dùng đã vote kiểu `notType`, nếu có thì chuyển đổi trạng thái
+        // Kiểm tra nếu type = like thì cộng point
+        if (type == 'like') {
+            await userModel.updateOne(
+                {
+                    _id: reply.user_id,
+                },
+                { $inc: { points: +1 } },
+            );
+        } else {
+            // Kiểm tra người dùng đã từng like chưa
+            const check = reply.vote.like.some(
+                (element) => element.user_id.toString() === userId,
+            );
+            if (check) {
+                await userModel.updateOne(
+                    {
+                        _id: reply.user_id,
+                        points: { $gt: 0 },
+                    },
+                    {
+                        $inc: { points: -1 },
+                    },
+                );
+            }
+        }
+
+        // Kiểm tra nếu người dùng đã vote kiểu `notType`, nếu có thì pull ở `notType`
         if (
             reply.vote[notType].some(
                 (element) => element.user_id.toString() === userId,

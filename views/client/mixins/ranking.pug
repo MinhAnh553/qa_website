@@ -1,0 +1,26 @@
+mixin ranking(ranking)
+    div(class="card-header border-0 fw-bold" style="font-size: 20px;") Bảng xếp hạng
+    hr(class="m-0")
+    // Card content
+    div(class="card-body")
+        if(ranking)
+            - var rank = 0
+            each user, index in ranking
+                - rank = index + 1
+                div(class="d-flex justify-content-between gap-3 align-items-center mb-3")
+                    div(class="d-flex justify-content-center gap-2 align-items-center")
+
+                        if (rank == 1)
+                            img(src="/images/rank1.png" alt="rank 1" style="width: 35px; height: 35px; object-fit: cover;")
+                        else if (rank == 2)
+                            img(src="/images/rank2.png" alt="rank 2" style="width: 35px; height: 35px; object-fit: cover;")
+                        else if (rank == 3)
+                            img(src="/images/rank3.png" alt="rank 3" style="width: 35px; height: 35px; object-fit: cover;")
+                        else
+                            strong(style="color: #000000; font-size: 18px; width: 35px; padding: 0 13px") #{rank}
+
+                        img(src=(user.avatar ? user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 40px; height: 40px; object-fit: cover;")
+                        a(href="#" target="_blank" style="font-weight: bold") #{user.fullName}
+                    strong(style="font-size: 16px") #{user.points} Points
+        else 
+            strong Đang cập nhật...
