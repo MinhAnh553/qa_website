@@ -8,10 +8,10 @@ block main
             // Grid row
             div(class="row gx-xl-5")
                 // Grid column
-                div(class="card col-xl-8 mb-lg-5 pr-xl-4")
+                div(class="col-xl-8 mb-lg-5 pr-xl-4" style="padding-right: 7px;")
                     if(question)
                         // Card: Main question
-                        div(class="question-card card mt-3 mb-3")
+                        div(class="question-card card mb-3")
                             // Card header
                             div(class="card-header forum-card-img-30 d-flex justify-content-between gap-3 align-items-center border-0")
                                 div(class="d-flex justify-content-center gap-3 align-items-center")
@@ -32,120 +32,137 @@ block main
                                         each image in question.images
                                             img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0;")
 
-                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block")
+                            div(class="card-body d-flex justify-content-between")
+                                    if question.status == 0
+                                        div(class="d-flex justify-content-center align-items-center gap-2 box-number-reply")
+                                            span #{question.reply.length}
+                                            i(class="fa-regular fa-comment-dots")
+                                    else
+                                        div(class="d-flex justify-content-center align-items-center gap-2 box-number-reply done")
+                                            i(class="fa-solid fa-check")
+                                            span #{question.reply.length}
+                                            i(class="fa-regular fa-comment-dots")
+
+                                    div(class="d-flex align-items-center justify-content-center gap-2 box-number-reply btn-custom btn-reply-detail")
+                                        | Trả lời
+                                            
                     
-                    div(class="card mb-5")
+                    div(class="question-card card container")
+                        // Grid row
+                        div(class="row")
+                            if(question.reply.length > 0)
+                                // Grid column
+                                div(class="pr-xl-4")
+                                    // Card: Main question
+                                    div(class="mt-3")
+                                        // Detail
+                                        div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
+                                            div(class="d-flex justify-content-between align-items-center" style="width: 100%;")
+                                                strong
+                                                    span(style="font-size: 18px") #{question.reply.length} câu trả lời
+                                                div(class="d-flex justify-content-center align-items-center gap-3")
+                                                    span(style="font-size: 15px") Sắp xếp:
+                                                    div 
+                                                        select(class="form-select" id="select-sort-reply")
+                                                            option(selected value="vote") Nhiều vote
+                                                            option(value="newest") Câu trả lời mới nhất
+                                                            option(value="oldest") Câu trả lời cũ nhất
+
+
+                                        
+                                        each reply in question.reply
+                                            // Card header
+                                            div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
+                                                p(class="pt-2 mb-0")
+                                                    img(src=(reply.user.avatar ? reply.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
+                                                    div(class="d-flex flex-column")
+                                                        strong
+                                                            a(href="#" target="_blank") #{reply.user.fullName}
+                                                        span(style="font-size: 13px") #{moment(reply.createdAt).fromNow()}
+
+                                            // Card content
+                                            div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
+                                                div(class="row gx-xl-5" style="margin-left: -15px;")
+                                                    div(class="col-xl-1")
+                                                        div(class="d-flex flex-column justify-content-center align-items-center gap-2")
+                                                            div(
+                                                                class=`button-vote ${reply.userVote === 'like' ? 'action' : ''}`
+                                                                vote-like
+                                                                id_reply=reply.id
+                                                            )
+                                                                svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
+                                                                    g
+                                                                        path(fill="none" d="M0 0h24v24H0z")
+                                                                        path(d="M12 8l6 6H6z")
+                                                            div() 
+                                                                span #{reply.vote.like.length - reply.vote.dislike.length}
+                                                            div(
+                                                                class=`button-vote ${reply.userVote === 'dislike' ? 'action' : ''}`
+                                                                id_reply=reply.id
+                                                            )
+                                                                svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
+                                                                    g
+                                                                        path(fill="none" d="M0 0h24v24H0z")
+                                                                        path(d="M12 16l-6-6h12z")
+
+
+
+                                                    div(class="col-xl-11")
+                                                        != reply.description
+                                                        if reply.images
+                                                            div(class="d-flex justify-content-center align-items-center" style="background-color: rgba(229, 231, 235, .5); border-radius: 0.5rem;")
+                                                                each image in reply.images
+                                                                    img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0;")
+                                            hr
+                            // Grid column
+                            div(id="form-reply")
+                                div(class="card-body")
+                                    h3(class="mb-4") Câu trả lời của bạn
+                                    form(
+                                        action=`/question/reply/${question.id}`
+                                        method="POST"
+                                        enctype="multipart/form-data"
+                                    )
+                                        div(class="form-group")
+                                            textarea(
+                                                type="text"
+                                                class="form-control tinymce"
+                                                name="description"
+                                                rows="5"
+                                            )
+                                        div(
+                                            class="form-group"
+                                            upload-image
+                                        )
+                                            label(for="images" class="p-1") Ảnh
+                                            input(
+                                                type="file"
+                                                class="form-control"
+                                                id="images"
+                                                name="images"
+                                                accept="image/*"
+                                                upload-image-input
+                                            )
+                                            image(
+                                                class="image-preview"
+                                                src=""
+                                                upload-image-preview
+                                            )
+
+                                        div(class="form-group mt-3")
+                                            button(
+                                                type="submit"
+                                                class="btn btn-primary"
+                                            ) Gửi câu trả lời
+            
+
+                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block" style="padding-left: 5px;")
+                    
+                    div(class="question-card card mb-5")
                         // Bảng xếp hạng
                         +ranking(ranking)
 
-        div(class="container" style="margin-top: -25px;")
-            // Grid row
-            div(class="row gx-xl-5")
-                if(question.reply.length > 0)
-                    // Grid column
-                    div(class="card col-xl-8 mb-3 pr-xl-4")
-                        // Card: Main question
-                        div(class="question-card card mt-3 mb-3")
-                            // Detail
-                            div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
-                                div(class="d-flex justify-content-between align-items-center" style="width: 100%;")
-                                    strong
-                                        span(style="font-size: 18px") #{question.reply.length} câu trả lời
-                                    div(class="d-flex justify-content-center align-items-center gap-3")
-                                        span(style="font-size: 15px") Sắp xếp:
-                                        div 
-                                            select(class="form-select" id="select-sort-reply")
-                                                option(selected value="vote") Nhiều vote
-                                                option(value="newest") Câu trả lời mới nhất
-                                                option(value="oldest") Câu trả lời cũ nhất
-
-
-                            
-                            each reply in question.reply
-                                // Card header
-                                div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
-                                    p(class="pt-2 mb-0")
-                                        img(src=(reply.user.avatar ? reply.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
-                                        div(class="d-flex flex-column")
-                                            strong
-                                                a(href="#" target="_blank") #{reply.user.fullName}
-                                            span(style="font-size: 13px") #{moment(reply.createdAt).fromNow()}
-
-                                // Card content
-                                div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
-                                    div(class="row gx-xl-5" style="margin-left: -15px;")
-                                        div(class="col-xl-1")
-                                            div(class="d-flex flex-column justify-content-center align-items-center gap-2")
-                                                div(
-                                                    class=`button-vote ${reply.userVote === 'like' ? 'action' : ''}`
-                                                    vote-like
-                                                    id_reply=reply.id
-                                                )
-                                                    svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
-                                                        g
-                                                            path(fill="none" d="M0 0h24v24H0z")
-                                                            path(d="M12 8l6 6H6z")
-                                                div() 
-                                                    span #{reply.vote.like.length - reply.vote.dislike.length}
-                                                div(
-                                                    class=`button-vote ${reply.userVote === 'dislike' ? 'action' : ''}`
-                                                    id_reply=reply.id
-                                                )
-                                                    svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
-                                                        g
-                                                            path(fill="none" d="M0 0h24v24H0z")
-                                                            path(d="M12 16l-6-6h12z")
-
-
-
-                                        div(class="col-xl-11")
-                                            != reply.description
-                                            if reply.images
-                                                div(class="d-flex justify-content-center align-items-center" style="background-color: rgba(229, 231, 235, .5); border-radius: 0.5rem;")
-                                                    each image in reply.images
-                                                        img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0;")
-                                hr
-                // Grid column
-                div(class="card col-xl-8 mb-lg-5 pr-xl-4")
-                    div(class="card-body")
-                        h3(class="mb-4") Câu trả lời của bạn
-                        form(
-                            action=`/question/reply/${question.id}`
-                            method="POST"
-                            enctype="multipart/form-data"
-                        )
-                            div(class="form-group")
-                                textarea(
-                                    type="text"
-                                    class="form-control tinymce"
-                                    name="description"
-                                    rows="5"
-                                )
-                            div(
-                                class="form-group"
-                                upload-image
-                            )
-                                label(for="images") Ảnh
-                                input(
-                                    type="file"
-                                    class="form-control"
-                                    id="images"
-                                    name="images"
-                                    accept="image/*"
-                                    upload-image-input
-                                )
-                                image(
-                                    class="image-preview"
-                                    src=""
-                                    upload-image-preview
-                                )
-
-                            div(class="form-group mt-2")
-                                button(
-                                    type="submit"
-                                    class="btn btn-primary"
-                                ) Gửi câu trả lời
-            
+        
             
 block script
     script(src="/tinymce/tinymce.min.js")

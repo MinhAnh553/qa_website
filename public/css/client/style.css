@@ -185,7 +185,7 @@ header .nav li a:hover {
 /* Box typing */
 /* Sort Document */
 .question-card {
-    border: 1px solid #dee0e1;
+    border: 1px solid #ccc;
 }
 
 .btn-select {
@@ -211,6 +211,33 @@ header .nav li a:hover {
 .box-number-reply.done {
     color: #fff !important;
     background-color: #12ad50;
+}
+.btn-question {
+    font-size: 17px;
+}
+
+.btn-custom,
+.btn-question {
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.btn-custom:hover,
+.btn-question {
+    cursor: pointer;
+    color: #fff !important;
+    background-color: #12ad50;
+}
+
+.sort-question {
+    cursor: pointer;
+    color: #525960;
+    font-weight: 600;
+}
+
+.sort-question:hover,
+.sort-question.action {
+    background-color: rgb(222 224 225);
 }
 
 .image-preview {

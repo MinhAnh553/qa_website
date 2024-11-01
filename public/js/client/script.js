@@ -109,6 +109,13 @@ if (questionsCard) {
         }
     }
 }
+const btnReplyDetail = document.querySelector('.btn-reply-detail');
+if (btnReplyDetail) {
+    btnReplyDetail.addEventListener('click', () => {
+        const formReply = document.querySelector('#form-reply');
+        formReply.scrollIntoView({ block: 'center' });
+    });
+}
 
 // Vote reply
 const buttonVote = document.querySelectorAll('.button-vote');

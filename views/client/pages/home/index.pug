@@ -8,38 +8,39 @@ block main
             // Grid row
             div(class="row gx-xl-5")
                 // Grid column
-                div(class="card col-xl-8 mb-lg-5 pr-xl-4")
+                div(class="col-xl-8 mb-lg-5 pr-xl-4" style="padding-right: 7px;")
                     // Breadcrumbs Question
                     div(class="mb-1")
                         div(class="card-body")
                             div(class="d-flex justify-content-between")
-                                h3(class="fw-bold") Tất cả câu hỏi
+                                h4(class="fw-bold" style="color: black") Tất cả câu hỏi
                                 a(href="/question/ask") 
-                                    button(class="btn btn-danger" type="button") Đặt câu hỏi
+                                    div(class="d-flex align-items-center justify-content-center gap-2 box-number-reply btn-question")
+                                        | Đặt câu hỏi
 
-                            div(class="d-flex justify-content-end mt-4")
-                                ul(class="nav nav-tabs mb-2")
-                                    li(class="nav-item")
-                                        a(class="nav-link btn-select active" href="#") Tất cả
-                                    li(class="nav-item")
-                                        a(class="nav-link btn-select" href="#") Mới nhất
-                                    li(class="nav-item")
-                                        a(class="nav-link btn-select" href="#") Câu hỏi hay
-                                    li(class="nav-item")
-                                        a(class="nav-link btn-select" href="#") Chưa trả lời
+                            div(class="d-flex justify-content-end mt-3 mb-3")
+                                div(class="border border-2 rounded-3 d-flex justify-content-end")
+                                    a(class="py-2 px-3 sort-question action" style="border-right: 2px solid #e0e0e0")
+                                        | Mới nhất
+                                    a(class="py-2 px-3 sort-question" style="border-right: 2px solid #e0e0e0")
+                                        | Câu hỏi hay
+                                    a(class="py-2 px-3 sort-question")
+                                        | Chưa trả lời
+
+                                    //- li(class="nav-item")
+                                    //-     a(class="nav-link btn-select" href="#") Chưa trả lời
                             
                     if(questions)
                         each question in questions
                             // Card: Main question
                             div(class="question-card card mb-3")
                                 // Card header
-                                div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
-                                    p(class="pt-2 mb-0")
-                                        img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
-                                        div(class="d-flex flex-column")
-                                            strong
-                                                a(href="#" target="_blank") #{question.user.fullName}
-                                            span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
+                                div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")                                
+                                    img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
+                                    div(class="d-flex flex-column")
+                                        strong
+                                            a(href="#" target="_blank") #{question.user.fullName}
+                                        span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
 
                                 // Card content
                                 div(class="card-body" question_id=question.id style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500; cursor: pointer;")
@@ -49,24 +50,25 @@ block main
                                             each image in question.images
                                                 img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0;")
 
-                                // Card footer with replies
                                 div(class="card-body d-flex justify-content-between")
                                     if question.status == 0
-                                        div(class="d-flex align-items-center gap-2 box-number-reply")
+                                        div(class="d-flex justify-content-center align-items-center gap-2 box-number-reply")
                                             span #{question.reply.length}
                                             i(class="fa-regular fa-comment-dots")
                                     else
-                                        div(class="d-flex align-items-center gap-2 box-number-reply done")
+                                        div(class="d-flex justify-content-center align-items-center gap-2 box-number-reply done")
                                             i(class="fa-solid fa-check")
                                             span #{question.reply.length}
                                             i(class="fa-regular fa-comment-dots")
 
-                                    button(class="btn btn-outline-danger btn-reply" type="button") Trả lời
+                                    div(class="d-flex align-items-center justify-content-center gap-2 box-number-reply btn-custom btn-reply")
+                                        | Trả lời
+                                        //- button(class="btn btn-outline-danger btn-reply" type="button") Trả lời
 
 
-                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block")
+                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block" style="padding-left: 5px;")
                     
-                    div(class="card mb-5")
+                    div(class="question-card card mb-5")
                         // Bảng xếp hạng
                         +ranking(ranking)
             
