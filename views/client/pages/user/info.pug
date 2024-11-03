@@ -12,9 +12,9 @@ block main
                 // Profile Picture and Info
                 div(class="d-flex justify-content-center align-items-center")
                     div(class="me-4")
-                        img(src=(user.avatar ? user.avatar : "/images/avatar.png") class="rounded-circle border" alt="Profile Picture" style="width:80px;height:80px;font-size:20px;object-fit: cover;")
+                        img(src=(userInfo.avatar ? userInfo.avatar : "/images/avatar.png") class="rounded-circle border" alt="Profile Picture" style="width:80px;height:80px;font-size:20px;object-fit: cover;")
                     div
-                        h5(class="mb-1") #{user.fullName}
+                        h5(class="mb-1") #{userInfo.fullName}
                         //- p(class="text-muted mb-0") @minhanh2003
                         //- p(class="text-muted") Danh hiệu: 
                         //-     span(class="text-success") Lính mới
@@ -24,17 +24,18 @@ block main
                             //-     | 0 câu hay nhất
                             span(class="me-3")
                                 i(class="fa-solid fa-thumbs-up text-primary" style="margin-right: 5px;")
-                                span #{user.likes} lượt like
+                                span #{userInfo.likes} lượt like
                             //- span
                             //-     i(class="fas fa-wallet text-success")
                             //-     | Số dư: 10.000 đ
-                // Edit Button 
-                a(href="/user/edit-info")
-                    button(class="btn btn-light btn-sm p-2 px-3" style="background: #dee0e1; color: rgb(82 82 82); font-weight: 500;")
-                        i(class="fa-solid fa-user-pen" style="margin-right: 7px;")
-                        | Chỉnh sửa thông tin
+                if(user)
+                    // Edit Button 
+                    a(href="/user/edit-info")
+                        button(class="btn btn-light btn-sm p-2 px-3" style="background: #dee0e1; color: rgb(82 82 82); font-weight: 500;")
+                            i(class="fa-solid fa-user-pen" style="margin-right: 7px;")
+                            | Chỉnh sửa thông tin
             // Description
-            p(class="mt-3 text-muted") #{user.describe}
+            p(class="mt-3 text-muted") #{userInfo.describe}
             // Tabs
             ul#profileTabs(class="nav nav-tabs mt-4" role="tablist")
                 li(class="nav-item" role="presentation")
@@ -63,7 +64,11 @@ block main
                                         ellipse(cx="20.654" cy="3.167" rx="2.849" ry="2.815")
                                         path(d="M5.698 5.63H0L2.898.704zM9.259.704h4.985V5.63H9.259z")
 
-                            p(class="text-muted") Bạn chưa đặt câu hỏi nào!
+                            p(class="text-muted") 
+                                if(user)
+                                    | Bạn chưa đặt câu hỏi nào!
+                                else 
+                                    | Người dùng chưa đặt câu hỏi nào!
                 #answers(class="tab-pane fade" role="tabpanel" aria-labelledby="answers-tab")
                     // Content for Answers tab
                 #saved(class="tab-pane fade" role="tabpanel" aria-labelledby="saved-tab")

@@ -21,7 +21,7 @@ mixin ranking(ranking)
                                 strong(style="color: #000000; font-size: 18px;") #{rank}
 
                         img(src=(user.avatar ? user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 40px; height: 40px; object-fit: cover;")
-                        a(href=`/user/${user.id}` target="_blank" style="font-weight: bold; white-space: nowrap") #{user.fullName}
+                        a(href=`/user/${user.id}` style="font-weight: bold; white-space: nowrap") #{user.fullName}
                     strong(style="font-size: 16px; white-space: nowrap; text-align: end") #{user.points} Points
         else 
             strong Đang cập nhật...

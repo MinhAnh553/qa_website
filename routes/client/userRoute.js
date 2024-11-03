@@ -18,11 +18,6 @@ Router.route('/login')
 
 Router.route('/logout').get(userController.logoutUser);
 
-Router.route('/info').get(
-    authMiddleware.isAuthorized,
-    userController.getInfoPage,
-);
-
 Router.route('/edit-info')
     .get(authMiddleware.isAuthorized, userController.getEditInfoPage)
     .post(
@@ -31,5 +26,7 @@ Router.route('/edit-info')
         uploadCloudMiddleware.uploadCloud,
         userController.postEditInfo,
     );
+
+Router.route('/:id').get(userController.getUserPage);
 
 export const userRoute = Router;

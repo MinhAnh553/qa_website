@@ -93,23 +93,6 @@ const logoutUser = async (req, res) => {
     }
 };
 
-// [GET] /user/info
-const getInfoPage = async (req, res) => {
-    try {
-        const id = res.locals.user.id;
-        const user = await userService.getUserByid(id);
-
-        res.render('client/pages/user/info', {
-            pageTitle: 'Thông tin tài khoản',
-            user: user,
-        });
-    } catch (error) {
-        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
-            message: 'Server Error!',
-        });
-    }
-};
-
 // [GET] /user/edit-info
 const getEditInfoPage = async (req, res) => {
     try {
@@ -140,13 +123,30 @@ const postEditInfo = async (req, res) => {
     }
 };
 
+// [GET] /user/:id
+const getUserPage = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await userService.getUserByid(id);
+
+        res.render('client/pages/user/info', {
+            pageTitle: 'Trang cá nhân',
+            userInfo: user,
+        });
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     registerPage,
     registerUser,
     loginPage,
     loginUser,
     logoutUser,
-    getInfoPage,
     getEditInfoPage,
     postEditInfo,
+    getUserPage,
 };
