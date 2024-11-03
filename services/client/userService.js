@@ -93,4 +93,42 @@ const login = async (data, res) => {
     }
 };
 
-export default { createNew, login };
+const getUserByid = async (id) => {
+    try {
+        const user = await userModel.findOne({
+            _id: id,
+            deleted: false,
+            status: 'active',
+        });
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const editInfo = async (req, res) => {
+    try {
+        const data = req.body;
+        console.log('MinhAnh553: editInfo -> data', data);
+        await userModel.updateOne(
+            {
+                _id: res.locals.user.id,
+                status: 'active',
+                deleted: false,
+            },
+            {
+                ...data,
+            },
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
+export default {
+    createNew,
+    login,
+    getUserByid,
+    editInfo,
+};

@@ -139,13 +139,18 @@ const voteReply = async (req, res) => {
             },
         };
 
-        // Kiểm tra nếu type = like thì cộng point
+        // Kiểm tra nếu type = like thì cộng point, tăng lượt like
         if (type == 'like') {
             await userModel.updateOne(
                 {
                     _id: reply.user_id,
                 },
-                { $inc: { points: +1 } },
+                {
+                    $inc: {
+                        points: 1,
+                        likes: 1,
+                    },
+                },
             );
         } else {
             // Kiểm tra người dùng đã từng like chưa
@@ -160,6 +165,16 @@ const voteReply = async (req, res) => {
                     },
                     {
                         $inc: { points: -1 },
+                    },
+                );
+
+                await userModel.updateOne(
+                    {
+                        _id: reply.user_id,
+                        likes: { $gt: 0 },
+                    },
+                    {
+                        $inc: { likes: -1 },
                     },
                 );
             }

@@ -10,6 +10,12 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        likes: {
+            type: Number,
+            default: 0,
+        },
+        birthDate: String,
+        describe: String,
         status: {
             type: String,
             default: 'active',

@@ -93,10 +93,60 @@ const logoutUser = async (req, res) => {
     }
 };
 
+// [GET] /user/info
+const getInfoPage = async (req, res) => {
+    try {
+        const id = res.locals.user.id;
+        const user = await userService.getUserByid(id);
+
+        res.render('client/pages/user/info', {
+            pageTitle: 'Thông tin tài khoản',
+            user: user,
+        });
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
+// [GET] /user/edit-info
+const getEditInfoPage = async (req, res) => {
+    try {
+        const id = res.locals.user.id;
+        const user = await userService.getUserByid(id);
+
+        res.render('client/pages/user/edit-info', {
+            pageTitle: 'Chỉnh sửa thông tin',
+            user: user,
+        });
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
+// [POST] /user/edit-info
+const postEditInfo = async (req, res) => {
+    try {
+        await userService.editInfo(req, res);
+
+        res.redirect('back');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     registerPage,
     registerUser,
     loginPage,
     loginUser,
     logoutUser,
+    getInfoPage,
+    getEditInfoPage,
+    postEditInfo,
 };

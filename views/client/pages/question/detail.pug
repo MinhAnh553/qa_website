@@ -18,7 +18,7 @@ block main
                                     img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
                                     div(class="d-flex flex-column")
                                         strong
-                                            a(href="#" target="_blank") #{question.user.fullName}
+                                            a(href=`/user/${question.user_id}`) #{question.user.fullName}
                                         span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
                                 if(user && question.user_id == user.id)
                                     a(href=`/question/complete/${question.id}`)
@@ -77,7 +77,7 @@ block main
                                                     img(src=(reply.user.avatar ? reply.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
                                                     div(class="d-flex flex-column")
                                                         strong
-                                                            a(href="#" target="_blank") #{reply.user.fullName}
+                                                            a(href=`/user/${reply.user_id}`) #{reply.user.fullName}
                                                         span(style="font-size: 13px") #{moment(reply.createdAt).fromNow()}
 
                                             // Card content

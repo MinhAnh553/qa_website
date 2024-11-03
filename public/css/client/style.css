@@ -268,3 +268,32 @@ header .nav li a:hover {
     color: green;
     border-color: green;
 }
+
+/* Edit Info */
+.profile-card {
+    max-width: 600px;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.form-label-custom {
+    font-weight: 600;
+    color: #000;
+}
+
+.form-control-custom {
+    font-weight: 500;
+    min-height: 40px;
+    background: #efefef;
+}
+
+.change-avatar {
+    cursor: pointer;
+    color: blueviolet;
+    font-weight: 500;
+}

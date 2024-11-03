@@ -8,51 +8,52 @@ block main
             // Grid row
             div(class="row gx-xl-5")
                 // Grid column
-                div(class="card col-xl-8 mb-lg-5 pr-xl-4")
-                    div(class="card-body")
-                        h3(class="mb-4") Đặt câu hỏi về vấn đề của bạn
-                        form(
-                            action="/question/ask"
-                            method="POST"
-                            enctype="multipart/form-data"
-                        )
-                            div(class="form-group")
-                                textarea(
-                                    type="text"
-                                    class="form-control tinymce"
-                                    name="description"
-                                    rows="5"
-                                )
-                            div(
-                                class="form-group"
-                                upload-image
+                div(class="col-xl-8 mb-lg-5 pr-xl-4" style="padding-right: 7px;")
+                    div(class="question-card card container")
+                        div(class="card-body")
+                            h3(class="mb-4") Đặt câu hỏi về vấn đề của bạn
+                            form(
+                                action="/question/ask"
+                                method="POST"
+                                enctype="multipart/form-data"
                             )
-                                label(for="images") Ảnh
-                                input(
-                                    type="file"
-                                    class="form-control"
-                                    id="images"
-                                    name="images"
-                                    accept="image/*"
-                                    upload-image-input
+                                div(class="form-group")
+                                    textarea(
+                                        type="text"
+                                        class="form-control tinymce"
+                                        name="description"
+                                        rows="5"
+                                    )
+                                div(
+                                    class="form-group"
+                                    upload-image
                                 )
-                                image(
-                                    class="image-preview"
-                                    src=""
-                                    upload-image-preview
-                                )
+                                    label(for="images" class="p-1") Ảnh
+                                    input(
+                                        type="file"
+                                        class="form-control"
+                                        id="images"
+                                        name="images"
+                                        accept="image/*"
+                                        upload-image-input
+                                    )
+                                    image(
+                                        class="image-preview"
+                                        src=""
+                                        upload-image-preview
+                                    )
 
-                            div(class="form-group mt-2")
-                                button(
-                                    type="submit"
-                                    class="btn btn-primary"
-                                ) Gửi câu hỏi
+                                div(class="form-group mt-3")
+                                    button(
+                                        type="submit"
+                                        class="btn btn-primary"
+                                    ) Gửi câu hỏi
                         
                     
 
-                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block")
+                div(class="col-xl-4 mb-5 pl-xl-4 d-none d-lg-block" style="padding-left: 5px;")
                     
-                    div(class="card mb-5")
+                    div(class="question-card card mb-5")
                         // Bảng xếp hạng
                         +ranking(ranking)
 

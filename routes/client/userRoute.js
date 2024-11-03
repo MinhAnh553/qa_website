@@ -1,8 +1,12 @@
 import express from 'express';
+import multer from 'multer';
+
 import userController from '../../controllers/client/userController.js';
 import authMiddleware from '../../middlewares/client/authMiddleware.js';
+import uploadCloudMiddleware from '../../middlewares/client/uploadCloudMiddleware.js';
 
 const Router = express.Router();
+const fileUpload = multer();
 
 Router.route('/register')
     .get(userController.registerPage)
@@ -13,5 +17,19 @@ Router.route('/login')
     .post(userController.loginUser);
 
 Router.route('/logout').get(userController.logoutUser);
+
+Router.route('/info').get(
+    authMiddleware.isAuthorized,
+    userController.getInfoPage,
+);
+
+Router.route('/edit-info')
+    .get(authMiddleware.isAuthorized, userController.getEditInfoPage)
+    .post(
+        authMiddleware.isAuthorized,
+        fileUpload.single('avatar'),
+        uploadCloudMiddleware.uploadCloud,
+        userController.postEditInfo,
+    );
 
 export const userRoute = Router;

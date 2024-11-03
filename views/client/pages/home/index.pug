@@ -39,7 +39,7 @@ block main
                                     img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
                                     div(class="d-flex flex-column")
                                         strong
-                                            a(href="#" target="_blank") #{question.user.fullName}
+                                            a(href=`/user/${question.user_id}`) #{question.user.fullName}
                                         span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
 
                                 // Card content

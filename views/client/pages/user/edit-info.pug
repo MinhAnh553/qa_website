@@ -1,0 +1,54 @@
+extends ../../layouts/default.pug
+
+block main  
+
+    div(class="container mt-5 mb-5")
+        div(class="question-card card profile-card p-4")
+            h4(class="text-center text-primary mb-4 fw-bold") Chỉnh sửa thông tin
+            div(class="d-flex align-items-center justify-content-center flex-column mb-2")
+                // Ảnh đại diện và nút thay đổi ảnh
+                img(
+                    src=(user.avatar ? user.avatar : "/images/avatar.png") 
+                    upload-image-preview 
+                    class="rounded-circle border" 
+                    alt="Avatar" onclick="document.getElementById('avatar').click()" 
+                    style="border: 1px solid #000 !important; width:80px; height:80px; font-size:20px;  cursor: pointer; object-fit: cover;"
+                )
+                span(class="mb-0 change-avatar" onclick="document.getElementById('avatar').click()") Thay đổi ảnh đại diện
+                    
+            // Form chỉnh sửa thông tin
+            form(
+                action="/user/edit-info"
+                method="POST"
+                enctype="multipart/form-data"
+                form-edit-user
+            )
+                input(
+                    type="file"
+                    class="form-control d-none"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/*"
+                    upload-image-input
+                )
+                div(class="my-3")
+                    label(class="form-label-custom" for="fullName") Họ và tên
+                    input#fullName(type="text" class="form-control form-control-custom" name="fullName" value=user.fullName)
+                //- div(class="my-3")
+                //-     label(class="form-label-custom" for="email") Email
+                //-     input#email(type="email" class="form-control form-control-custom" placeholder="Email của bạn")
+                div(class="my-3")
+                    label(class="form-label-custom" for="birthdate") Ngày sinh
+                    input#birthdate(type="date" name="birthDate" class="form-control form-control-custom" value=user.birthDate)
+                div(class="my-3")
+                    label(class="form-label-custom" for="describe") Giới thiệu bản thân
+                    textarea(
+                        type="text"
+                        id="describe"
+                        class="form-control form-control-custom"
+                        name="describe"
+                        rows="3"
+                    ) #{user.describe}
+
+                div(class="d-flex justify-content-center mt-4")
+                    button(type="submit" class="btn btn-primary me-3") Cập nhật
