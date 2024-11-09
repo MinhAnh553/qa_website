@@ -90,6 +90,13 @@ if (uploadImage) {
     });
 }
 
+const uploadImagePreview = document.querySelector('.image-edit');
+if (uploadImagePreview) {
+    new Viewer(uploadImagePreview, {
+        inline: false,
+    });
+}
+
 // Preview avatar
 const formEditUser = document.querySelector('[form-edit-user]');
 if (formEditUser) {
@@ -151,7 +158,7 @@ if (buttonVote) {
             };
 
             const response = await fetch(`/question/reply/vote`, {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },

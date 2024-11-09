@@ -333,6 +333,27 @@ const deleteQuestion = async (req, res) => {
     }
 };
 
+const editQuestion = async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    const userId = res.locals.user.id;
+    const result = await questionModel.updateOne(
+        {
+            _id: id,
+            user_id: userId,
+        },
+        {
+            ...data,
+        },
+    );
+
+    if (result.modifiedCount > 0) {
+        return 'OK';
+    } else {
+        return 'NOT_FOUND';
+    }
+};
+
 export default {
     getAllQuestion,
     getQuestionbyId,
@@ -342,4 +363,5 @@ export default {
     getQuestionByUser,
     getReplyByUser,
     deleteQuestion,
+    editQuestion,
 };

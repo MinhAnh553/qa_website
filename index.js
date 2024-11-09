@@ -4,6 +4,8 @@ import session from 'express-session';
 import flash from 'express-flash';
 import cors from 'cors';
 import moment from 'moment';
+import methodOverride from 'method-override';
+
 import 'moment-timezone';
 import 'moment/locale/vi.js';
 
@@ -27,6 +29,9 @@ const port = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
+// override method
+app.use(methodOverride('_method'));
 
 // Use Cookie
 app.use(cookieParser());

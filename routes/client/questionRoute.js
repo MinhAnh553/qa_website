@@ -19,6 +19,19 @@ Router.route('/delete/:id').delete(
     questionController.deleteQuestion,
 );
 
+Router.route('/edit/:id')
+    .get(
+        authMiddleware.isAuthorized,
+        rankingMiddleware.getRanking,
+        questionController.editQuestion,
+    )
+    .patch(
+        authMiddleware.isAuthorized,
+        fileUpload.single('images'),
+        uploadCloudMiddleware.uploadCloud,
+        questionController.postEditQuestion,
+    );
+
 Router.route('/ask')
     .get(
         authMiddleware.isAuthorized,
