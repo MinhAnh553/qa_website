@@ -20,11 +20,11 @@ block main
 
                             div(class="d-flex justify-content-end mt-3 mb-3")
                                 div(class="border border-2 rounded-3 d-flex justify-content-end")
-                                    a(class="py-2 px-3 sort-question action" style="border-right: 2px solid #e0e0e0")
+                                    a(href="/question?sort=newest" class=`py-2 px-3 sort-question ${sort === 'newest' || '' ? 'action' : ''}` style="border-right: 2px solid #e0e0e0")
                                         | Mới nhất
-                                    a(class="py-2 px-3 sort-question" style="border-right: 2px solid #e0e0e0")
+                                    a(href="/question?sort=hot" class=`py-2 px-3 sort-question ${sort === 'hot' ? 'action' : ''}` style="border-right: 2px solid #e0e0e0")
                                         | Câu hỏi hay
-                                    a(class="py-2 px-3 sort-question")
+                                    a(href="/question?sort=noreply" class=`py-2 px-3 sort-question ${sort === 'noreply' ? 'action' : ''}`)
                                         | Chưa trả lời
 
                                     //- li(class="nav-item")

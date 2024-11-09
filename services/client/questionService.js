@@ -1,6 +1,42 @@
 import questionModel from '../../models/questionModel.js';
 import userModel from '../../models/userModel.js';
 
+const getAllQuestion = async (req, res) => {
+    const keySort = req.query.sort || 'newest';
+
+    let find = {
+        deleted: false,
+    };
+
+    if (keySort == 'noreply') {
+        find.status = 0;
+    }
+
+    const questions = await questionModel
+        .find(find)
+        .sort({ createdAt: 'desc' });
+
+    if (keySort == 'hot') {
+        questions.sort((a, b) => b.reply.length - a.reply.length);
+    }
+
+    for (const question of questions) {
+        const user = await userModel
+            .findOne({
+                _id: question.user_id,
+                deleted: false,
+            })
+            .select('fullName avatar');
+
+        question.user = user;
+    }
+
+    return {
+        questions,
+        keySort,
+    };
+};
+
 const getQuestionbyId = async (req, res) => {
     const userId = res.locals.user?.id;
     const id = req.params.id;
@@ -234,6 +270,7 @@ const completeQuestion = async (id) => {
 };
 
 export default {
+    getAllQuestion,
     getQuestionbyId,
     postReply,
     voteReply,

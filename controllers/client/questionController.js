@@ -7,25 +7,12 @@ import questionService from '../../services/client/questionService.js';
 // [GET] /question
 const questionPage = async (req, res) => {
     try {
-        const questions = await questionModel.find({
-            // status: { $ne: 0 },
-            deleted: false,
-        });
-
-        for (const question of questions) {
-            const user = await userModel
-                .findOne({
-                    _id: question.user_id,
-                    deleted: false,
-                })
-                .select('fullName avatar');
-
-            question.user = user;
-        }
+        const result = await questionService.getAllQuestion(req, res);
 
         res.render('client/pages/home/index', {
             pageTitle: 'Hỏi đáp',
-            questions: questions,
+            questions: result.questions,
+            sort: result.keySort,
         });
     } catch (error) {}
 };
