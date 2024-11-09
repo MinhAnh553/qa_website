@@ -83,6 +83,9 @@ if (uploadImage) {
         const file = e.target.files[0];
         if (file) {
             uploadImagePreview.src = URL.createObjectURL(file);
+            new Viewer(uploadImagePreview, {
+                inline: false,
+            });
         }
     });
 }
@@ -102,27 +105,24 @@ if (formEditUser) {
 }
 
 // Detail question
-const questionsCard = document.querySelectorAll('.question-card');
-if (questionsCard) {
-    for (const questionCard of questionsCard) {
-        const questionId = questionCard.querySelector('[question_id]');
-        const btnReply = questionCard.querySelector('.btn-reply');
-
-        if (questionId || btnReply) {
-            questionId.addEventListener('click', (e) => {
-                window.location.href = `/question/${questionId.getAttribute(
-                    'question_id',
-                )}`;
-            });
-
-            btnReply.addEventListener('click', (e) => {
-                window.location.href = `/question/${questionId.getAttribute(
-                    'question_id',
-                )}`;
-            });
-        }
-    }
+const questionsBody = document.querySelectorAll('[question_id]');
+if (questionsBody) {
+    questionsBody.forEach((card) => {
+        const questionId = card.getAttribute('question_id');
+        const btnReply = card.parentNode.querySelector('.btn-reply');
+        card.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.stopPropagation();
+            } else {
+                window.location.href = `/question/${questionId}`;
+            }
+        });
+        btnReply.addEventListener('click', (e) => {
+            window.location.href = `/question/${questionId}#form-reply`;
+        });
+    });
 }
+
 const btnReplyDetail = document.querySelector('.btn-reply-detail');
 if (btnReplyDetail) {
     btnReplyDetail.addEventListener('click', () => {
@@ -190,3 +190,15 @@ if (selectSortReply) {
         }
     });
 }
+
+// Viewer
+document.addEventListener('DOMContentLoaded', function () {
+    const imagesContainer = document.querySelectorAll('#images');
+    if (imagesContainer) {
+        imagesContainer.forEach((gallery) => {
+            new Viewer(gallery, {
+                inline: false,
+            });
+        });
+    }
+});

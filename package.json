@@ -34,6 +34,7 @@
         "pug": "^3.0.3",
         "socket.io": "^4.7.5",
         "streamifier": "^0.1.1",
-        "tinymce": "^7.4.1"
+        "tinymce": "^7.4.1",
+        "viewerjs": "^1.11.6"
     }
 }

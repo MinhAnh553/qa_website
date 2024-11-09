@@ -8,6 +8,7 @@ body {
     min-height: 100vh; /* Đảm bảo container chiếm toàn bộ chiều cao viewport */
     display: flex;
     flex-direction: column;
+    padding-right: 0 !important;
 }
 
 /* Fix giao diện giao diện bị xê dịch khi hiển thị thông báo */
