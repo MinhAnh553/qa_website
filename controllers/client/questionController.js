@@ -143,6 +143,21 @@ const postEditQuestion = async (req, res) => {
     }
 };
 
+// [DELETE] /question/reply/delete/:id
+const deleteReply = async (req, res) => {
+    try {
+        const result = await questionService.deleteReply(req, res);
+        res.status(StatusCodes[result]).json({
+            message: result.message,
+        });
+        // res.redirect('back');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     questionPage,
     detailPage,
@@ -154,4 +169,5 @@ export default {
     deleteQuestion,
     editQuestion,
     postEditQuestion,
+    deleteReply,
 };

@@ -354,6 +354,26 @@ const editQuestion = async (req, res) => {
     }
 };
 
+const deleteReply = async (req, res) => {
+    const replyId = req.params.id;
+    const userId = res.locals.user.id;
+
+    const question = await questionModel.findOne({
+        'reply._id': replyId,
+        'reply.user_id': userId,
+    });
+
+    const reply = question.reply.find(
+        (r) => r._id.toString() === replyId && r.user_id === userId,
+    );
+    if (reply) {
+        reply.deleted = true;
+    }
+
+    await question.save();
+    return 'OK';
+};
+
 export default {
     getAllQuestion,
     getQuestionbyId,
@@ -364,4 +384,5 @@ export default {
     getReplyByUser,
     deleteQuestion,
     editQuestion,
+    deleteReply,
 };

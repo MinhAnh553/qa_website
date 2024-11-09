@@ -278,7 +278,7 @@ if (btnDeleteQuestion) {
                             if (status == 200) {
                                 Swal.fire(
                                     'Đã xóa!',
-                                    'Câu hỏi đã được xóa thành công.',
+                                    'Xóa thành công.',
                                     'success',
                                 ).then(() => {
                                     window.location.reload();
@@ -286,7 +286,7 @@ if (btnDeleteQuestion) {
                             } else {
                                 Swal.fire(
                                     'Thất bại!',
-                                    'Không thể xóa câu hỏi. Vui lòng thử lại sau.',
+                                    'Không thể xóa. Vui lòng thử lại sau.',
                                     'error',
                                 );
                             }
@@ -294,7 +294,7 @@ if (btnDeleteQuestion) {
                         .catch(() => {
                             Swal.fire(
                                 'Lỗi!',
-                                'Đã xảy ra lỗi khi xóa câu hỏi.',
+                                'Đã xảy ra lỗi khi xóa.',
                                 'error',
                             );
                         });

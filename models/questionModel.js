@@ -31,6 +31,10 @@ const questionSchema = new mongoose.Schema(
                         },
                     ],
                 },
+                deleted: {
+                    type: Boolean,
+                    default: false,
+                },
                 createdAt: {
                     type: Date,
                     default: Date.now,

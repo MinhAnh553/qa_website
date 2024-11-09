@@ -21,8 +21,17 @@ block main
                                             a(href=`/user/${question.user_id}`) #{question.user.fullName}
                                         span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
                                 if(user && question.user_id == user.id)
-                                    a(href=`/question/complete/${question.id}`)
-                                        button(class="btn btn-danger" action-success-question type="button") Hoàn thành
+                                    div(style="cursor: pointer;position: relative;")
+                                        i(class="fa-solid fa-ellipsis-vertical icon-option" style="font-size: 20px;padding: 5px 10px;")
+                                        ul(class="options-menu" style="white-space: nowrap;display: none;position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 5px 0; list-style: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);")
+                                            li(style="margin: 5px;")
+                                                a(href=`/question/complete/${question.id}` style="display: block;padding: 8px 12px; cursor: pointer;color: #12ad50;") Hoàn thành
+                                            li(style="margin: 5px;")
+                                                a(href=`/question/reply/edit/${question.id}` style="display: block;padding: 8px 12px; cursor: pointer;") Chỉnh sửa
+                                            li(style="margin: 5px;")
+                                                a(href=`/question/reply/delete/${question.id}` btn-delete-question style="display: block;padding: 8px 12px; cursor: pointer; color: red;") Xóa
+                                    //- a(href=`/question/complete/${question.id}`)
+                                    //-     button(class="btn btn-danger" action-success-question type="button") Hoàn thành
 
                             // Card content
                             div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
@@ -71,49 +80,58 @@ block main
 
                                         
                                         each reply in question.reply
-                                            // Card header
-                                            div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
-                                                p(class="pt-2 mb-0")
-                                                    img(src=(reply.user.avatar ? reply.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
-                                                    div(class="d-flex flex-column")
-                                                        strong
-                                                            a(href=`/user/${reply.user_id}`) #{reply.user.fullName}
-                                                        span(style="font-size: 13px") #{moment(reply.createdAt).fromNow()}
+                                            if(reply.deleted == false)
+                                                // Card header
+                                                div(class="card-header d-flex justify-content-between align-items-center border-0")  
+                                                    div(class="d-flex justify-content-start gap-3 align-items-center pt-2 mb-0")                                
+                                                        img(src=(reply.user.avatar ? reply.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
+                                                        div(class="d-flex flex-column")
+                                                            strong
+                                                                a(href=`/user/${reply.user_id}`) #{reply.user.fullName}
+                                                            span(style="font-size: 13px") #{moment(reply.createdAt).fromNow()}
+                                                    if(user && reply.user_id == user.id)
+                                                        div(style="cursor: pointer;position: relative;")
+                                                            i(class="fa-solid fa-ellipsis-vertical icon-option" style="font-size: 20px;padding: 5px 10px")
+                                                            ul(class="options-menu" style="white-space: nowrap;display: none;position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 5px 0; list-style: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);")
+                                                                li(style="margin: 5px;")
+                                                                    a(href=`/question/reply/edit/${reply.id}` style="display: block;padding: 8px 12px; cursor: pointer;") Chỉnh sửa
+                                                                li(style="margin: 5px;")
+                                                                    a(href=`/question/reply/delete/${reply.id}` btn-delete-question style="display: block;padding: 8px 12px; cursor: pointer; color: red;") Xóa
 
-                                            // Card content
-                                            div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
-                                                div(class="row gx-xl-5" style="margin-left: -15px;")
-                                                    div(class="col-xl-1")
-                                                        div(class="d-flex flex-column justify-content-center align-items-center gap-2")
-                                                            div(
-                                                                class=`button-vote ${reply.userVote === 'like' ? 'action' : ''}`
-                                                                vote-like
-                                                                id_reply=reply.id
-                                                            )
-                                                                svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
-                                                                    g
-                                                                        path(fill="none" d="M0 0h24v24H0z")
-                                                                        path(d="M12 8l6 6H6z")
-                                                            div() 
-                                                                span #{reply.vote.like.length - reply.vote.dislike.length}
-                                                            div(
-                                                                class=`button-vote ${reply.userVote === 'dislike' ? 'action' : ''}`
-                                                                id_reply=reply.id
-                                                            )
-                                                                svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
-                                                                    g
-                                                                        path(fill="none" d="M0 0h24v24H0z")
-                                                                        path(d="M12 16l-6-6h12z")
+                                                // Card content
+                                                div(class="card-body" style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500;")
+                                                    div(class="row gx-xl-5" style="margin-left: -15px;")
+                                                        div(class="col-xl-1")
+                                                            div(class="d-flex flex-column justify-content-center align-items-center gap-2")
+                                                                div(
+                                                                    class=`button-vote ${reply.userVote === 'like' ? 'action' : ''}`
+                                                                    vote-like
+                                                                    id_reply=reply.id
+                                                                )
+                                                                    svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
+                                                                        g
+                                                                            path(fill="none" d="M0 0h24v24H0z")
+                                                                            path(d="M12 8l6 6H6z")
+                                                                div() 
+                                                                    span #{reply.vote.like.length - reply.vote.dislike.length}
+                                                                div(
+                                                                    class=`button-vote ${reply.userVote === 'dislike' ? 'action' : ''}`
+                                                                    id_reply=reply.id
+                                                                )
+                                                                    svg(stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="text-2xl" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg")
+                                                                        g
+                                                                            path(fill="none" d="M0 0h24v24H0z")
+                                                                            path(d="M12 16l-6-6h12z")
 
 
 
-                                                    div(class="col-xl-11")
-                                                        != reply.description
-                                                        if reply.images
-                                                            div(class="d-flex justify-content-center align-items-center" id="images" style="background-color: rgba(229, 231, 235, .5); border-radius: 0.5rem;")
-                                                                each image in reply.images
-                                                                    img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0; cursor: pointer;")
-                                            hr
+                                                        div(class="col-xl-11")
+                                                            != reply.description
+                                                            if reply.images
+                                                                div(class="d-flex justify-content-center align-items-center" id="images" style="background-color: rgba(229, 231, 235, .5); border-radius: 0.5rem;")
+                                                                    each image in reply.images
+                                                                        img(src=image style="max-width: 70%; max-height: 300px; border-radius: 0.375rem; margin: 15px 0; cursor: pointer;")
+                                                hr
                             // Grid column
                             div(id="form-reply")
                                 div(class="card-body")

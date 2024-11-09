@@ -55,6 +55,11 @@ Router.route('/reply/vote').post(
     questionController.voteReply,
 );
 
+Router.route('/reply/delete/:id').delete(
+    authMiddleware.isAuthorized,
+    questionController.deleteReply,
+);
+
 Router.route('/reply/:id').post(
     authMiddleware.isAuthorized,
     fileUpload.single('images'),
