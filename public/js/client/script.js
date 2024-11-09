@@ -169,7 +169,10 @@ if (buttonVote) {
 const selectSortReply = document.querySelector('#select-sort-reply');
 if (selectSortReply) {
     const urlParams = new URLSearchParams(window.location.search);
-    const currentSort = urlParams.get('sort') || 'vote';
+    let currentSort = urlParams.get('sort') || 'vote';
+    if (selectSortReply.classList.contains('sort-info')) {
+        currentSort = urlParams.get('sort') || 'desc';
+    }
     selectSortReply.value = currentSort;
 
     selectSortReply.addEventListener('change', (e) => {
@@ -180,8 +183,11 @@ if (selectSortReply) {
         const currentUrl = new URL(window.location.href);
 
         currentUrl.searchParams.set('sort', value);
-
-        window.location.href = currentUrl.toString() + '#sort';
+        if (!selectSortReply.classList.contains('sort-info')) {
+            window.location.href = currentUrl.toString() + '#sort';
+        } else {
+            window.location.href = currentUrl.toString();
+        }
     });
 
     window.addEventListener('load', () => {
@@ -202,3 +208,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Page info

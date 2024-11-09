@@ -269,10 +269,55 @@ const completeQuestion = async (id) => {
     );
 };
 
+const getQuestionByUser = async (req, res) => {
+    const id = req.params.id;
+    const keySort = req.query.sort || 'desc';
+
+    const questions = await questionModel
+        .find({
+            user_id: id,
+            deleted: false,
+        })
+        .sort({ createdAt: keySort });
+
+    return questions;
+};
+
+const getReplyByUser = async (req, res) => {
+    const id = req.params.id;
+    const keySort = req.query.sort || 'desc';
+
+    const questions = await questionModel
+        .find({
+            'reply.user_id': id,
+        })
+        .select('reply');
+
+    let result = [];
+    for (const question of questions) {
+        for (const reply of question.reply) {
+            if (reply.user_id == id) {
+                reply.questionId = question.id;
+                result.push(reply);
+            }
+        }
+    }
+
+    if (keySort === 'desc') {
+        result.sort((a, b) => b.createdAt - a.createdAt);
+    } else if (keySort === 'asc') {
+        result.sort((a, b) => a.createdAt - b.createdAt);
+    }
+
+    return result;
+};
+
 export default {
     getAllQuestion,
     getQuestionbyId,
     postReply,
     voteReply,
     completeQuestion,
+    getQuestionByUser,
+    getReplyByUser,
 };

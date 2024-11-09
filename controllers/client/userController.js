@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import ms from 'ms';
 
 import userService from '../../services/client/userService.js';
+import questionService from '../../services/client/questionService.js';
 
 // [GET] /user/register
 const registerPage = async (req, res) => {
@@ -127,11 +128,20 @@ const postEditInfo = async (req, res) => {
 const getUserPage = async (req, res) => {
     try {
         const id = req.params.id;
+        const page = req.query.page || 'questions';
         const user = await userService.getUserByid(id);
+        let result = '';
+        if (page == 'questions') {
+            result = await questionService.getQuestionByUser(req, res);
+        } else {
+            result = await questionService.getReplyByUser(req, res);
+        }
 
         res.render('client/pages/user/info', {
             pageTitle: 'Trang cá nhân',
             userInfo: user,
+            page: page,
+            result: result,
         });
     } catch (error) {
         res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
