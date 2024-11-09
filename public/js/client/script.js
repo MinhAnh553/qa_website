@@ -209,4 +209,89 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Page info
+// Toggle hiển thị menu khi bấm vào icon
+const iconsOption = document.querySelectorAll('.icon-option');
+if (iconsOption) {
+    iconsOption.forEach((icon) => {
+        icon.addEventListener('click', (e) => {
+            // Ngăn không cho sự kiện click lan truyền ra ngoài
+            e.stopPropagation();
+
+            const menu = icon.nextElementSibling;
+            menu.style.display =
+                menu.style.display === 'none' || menu.style.display === ''
+                    ? 'block'
+                    : 'none';
+
+            // Đóng menu khi click ra ngoài
+            document.addEventListener(
+                'click',
+                function handleClickOutside(event) {
+                    if (
+                        !icon.contains(event.target) &&
+                        !menu.contains(event.target)
+                    ) {
+                        menu.style.display = 'none';
+                        document.removeEventListener(
+                            'click',
+                            handleClickOutside,
+                        );
+                    }
+                },
+            );
+        });
+    });
+}
+
+// Delete question
+const btnDeleteQuestion = document.querySelector('[btn-delete-question]');
+if (btnDeleteQuestion) {
+    btnDeleteQuestion.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = btnDeleteQuestion.getAttribute('href');
+        console.log('MinhAnh553: href', href);
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            text: 'Thao tác này không thể hoàn tác!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(href, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then((response) => {
+                        const status = response.status;
+                        if (status == 200) {
+                            Swal.fire(
+                                'Đã xóa!',
+                                'Câu hỏi đã được xóa thành công.',
+                                'success',
+                            ).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                'Thất bại!',
+                                'Không thể xóa câu hỏi. Vui lòng thử lại sau.',
+                                'error',
+                            );
+                        }
+                    })
+                    .catch(() => {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Đã xảy ra lỗi khi xóa câu hỏi.',
+                            'error',
+                        );
+                    });
+            }
+        });
+    });
+}

@@ -98,6 +98,22 @@ const completeQuestion = async (req, res) => {
     }
 };
 
+// [DELETE] /question/delete/:id
+const deleteQuestion = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await questionService.deleteQuestion(id);
+        res.status(StatusCodes.OK).json({
+            message: result.message,
+        });
+        // res.redirect('back');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     questionPage,
     detailPage,
@@ -106,4 +122,5 @@ export default {
     postReply,
     voteReply,
     completeQuestion,
+    deleteQuestion,
 };

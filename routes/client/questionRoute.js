@@ -14,6 +14,11 @@ Router.route('/').get(
     questionController.questionPage,
 );
 
+Router.route('/delete/:id').delete(
+    authMiddleware.isAuthorized,
+    questionController.deleteQuestion,
+);
+
 Router.route('/ask')
     .get(
         authMiddleware.isAuthorized,

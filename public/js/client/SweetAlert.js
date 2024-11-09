@@ -5,6 +5,7 @@ const noticeTopRight = (message, option) => {
         timer: 3000,
         showConfirmButton: false,
         timerProgressBar: true,
+        ...option,
     });
 };
 

@@ -289,6 +289,7 @@ const getReplyByUser = async (req, res) => {
 
     const questions = await questionModel
         .find({
+            deleted: false,
             'reply.user_id': id,
         })
         .select('reply');
@@ -312,6 +313,21 @@ const getReplyByUser = async (req, res) => {
     return result;
 };
 
+const deleteQuestion = async (id) => {
+    await questionModel.updateOne(
+        {
+            _id: id,
+        },
+        {
+            deleted: true,
+        },
+    );
+
+    return {
+        message: 'Xóa thành công!',
+    };
+};
+
 export default {
     getAllQuestion,
     getQuestionbyId,
@@ -320,4 +336,5 @@ export default {
     completeQuestion,
     getQuestionByUser,
     getReplyByUser,
+    deleteQuestion,
 };

@@ -35,12 +35,20 @@ block main
                             // Card: Main question
                             div(class="question-card card mb-3")
                                 // Card header
-                                div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")                                
-                                    img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
-                                    div(class="d-flex flex-column")
-                                        strong
-                                            a(href=`/user/${question.user_id}`) #{question.user.fullName}
-                                        span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
+                                div(class="card-header d-flex justify-content-between align-items-center" style="padding-top:24px")       
+                                    div(class="forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")                                
+                                        img(src=(question.user.avatar ? question.user.avatar : "/images/avatar.png") class="rounded-circle mr-2" style="width: 60px; height: 60px; object-fit: cover;")
+                                        div(class="d-flex flex-column")
+                                            strong
+                                                a(href=`/user/${question.user_id}`) #{question.user.fullName}
+                                            span(style="font-size: 13px") #{moment(question.createdAt).fromNow()}
+                                    div(style="cursor: pointer;position: relative;")
+                                        i(class="fa-solid fa-ellipsis-vertical icon-option" style="font-size: 20px;padding: 5px 10px")
+                                        ul(class="options-menu" style="white-space: nowrap;display: none;position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 5px 0; list-style: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);")
+                                            li(style="margin: 5px;")
+                                                a(href=`/question/edit/${question.id}` style="display: block;padding: 8px 12px; cursor: pointer;") Chỉnh sửa
+                                            li(style="margin: 5px;")
+                                                a(href=`/question/delete/${question.id}` btn-delete-question style="display: block;padding: 8px 12px; cursor: pointer; color: red;") Xóa
 
                                 // Card content
                                 div(class="card-body" question_id=question.id style="font-size: 16px; padding: 5px 24px; color: black; font-weight: 500; cursor: pointer;")
