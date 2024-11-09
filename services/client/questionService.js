@@ -313,19 +313,24 @@ const getReplyByUser = async (req, res) => {
     return result;
 };
 
-const deleteQuestion = async (id) => {
-    await questionModel.updateOne(
+const deleteQuestion = async (req, res) => {
+    const id = req.params.id;
+    const userId = res.locals.user.id;
+    const result = await questionModel.updateOne(
         {
             _id: id,
+            user_id: userId,
         },
         {
             deleted: true,
         },
     );
 
-    return {
-        message: 'Xóa thành công!',
-    };
+    if (result.modifiedCount > 0) {
+        return 'OK';
+    } else {
+        return 'NOT_FOUND';
+    }
 };
 
 export default {

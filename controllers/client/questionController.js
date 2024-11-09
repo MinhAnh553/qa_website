@@ -101,9 +101,8 @@ const completeQuestion = async (req, res) => {
 // [DELETE] /question/delete/:id
 const deleteQuestion = async (req, res) => {
     try {
-        const id = req.params.id;
-        const result = await questionService.deleteQuestion(id);
-        res.status(StatusCodes.OK).json({
+        const result = await questionService.deleteQuestion(req, res);
+        res.status(StatusCodes[result]).json({
             message: result.message,
         });
         // res.redirect('back');

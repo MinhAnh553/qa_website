@@ -244,54 +244,55 @@ if (iconsOption) {
 }
 
 // Delete question
-const btnDeleteQuestion = document.querySelector('[btn-delete-question]');
+const btnDeleteQuestion = document.querySelectorAll('[btn-delete-question]');
 if (btnDeleteQuestion) {
-    btnDeleteQuestion.addEventListener('click', (e) => {
-        e.preventDefault();
-        const href = btnDeleteQuestion.getAttribute('href');
-        console.log('MinhAnh553: href', href);
+    btnDeleteQuestion.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = btn.getAttribute('href');
 
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xóa?',
-            text: 'Thao tác này không thể hoàn tác!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Đồng ý',
-            cancelButtonText: 'Hủy',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(href, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                    .then((response) => {
-                        const status = response.status;
-                        if (status == 200) {
+            Swal.fire({
+                title: 'Bạn có chắc chắn muốn xóa?',
+                text: 'Thao tác này không thể hoàn tác!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(href, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then((response) => {
+                            const status = response.status;
+                            if (status == 200) {
+                                Swal.fire(
+                                    'Đã xóa!',
+                                    'Câu hỏi đã được xóa thành công.',
+                                    'success',
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Thất bại!',
+                                    'Không thể xóa câu hỏi. Vui lòng thử lại sau.',
+                                    'error',
+                                );
+                            }
+                        })
+                        .catch(() => {
                             Swal.fire(
-                                'Đã xóa!',
-                                'Câu hỏi đã được xóa thành công.',
-                                'success',
-                            ).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire(
-                                'Thất bại!',
-                                'Không thể xóa câu hỏi. Vui lòng thử lại sau.',
+                                'Lỗi!',
+                                'Đã xảy ra lỗi khi xóa câu hỏi.',
                                 'error',
                             );
-                        }
-                    })
-                    .catch(() => {
-                        Swal.fire(
-                            'Lỗi!',
-                            'Đã xảy ra lỗi khi xóa câu hỏi.',
-                            'error',
-                        );
-                    });
-            }
+                        });
+                }
+            });
         });
     });
 }
