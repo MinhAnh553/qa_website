@@ -1,1 +1,82 @@
-.sidebar-fixed{height:100vh;width:270px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);z-index:1050;background-color:#fff;padding:0 1.5rem 1.5rem}.sidebar-fixed .list-group .active{-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);-webkit-border-radius:5px;border-radius:5px}.sidebar-fixed .logo-wrapper{padding:2.5rem}.sidebar-fixed .logo-wrapper img{max-height:50px}@media (min-width:1200px){.navbar,.page-footer,main{padding-left:270px}}@media (max-width:1199.98px){.sidebar-fixed{display:none}}
+.sidebar-fixed {
+    height: 100vh;
+    width: 270px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    z-index: 1050;
+    background-color: #fff;
+    padding: 0 1.5rem 1.5rem;
+}
+.sidebar-fixed .list-group .active {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.sidebar-fixed .logo-wrapper {
+    padding: 2.5rem;
+}
+.sidebar-fixed .logo-wrapper img {
+    max-height: 50px;
+}
+@media (min-width: 1200px) {
+    .navbar,
+    .page-footer,
+    main {
+        padding-left: 270px;
+    }
+}
+@media (max-width: 1199.98px) {
+    .sidebar-fixed {
+        display: none;
+    }
+}
+.question-card {
+    border: 1px solid #ccc;
+}
+
+.btn-select {
+    font-size: 14px !important;
+}
+.btn-select.active {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    background-color: #f4f5fa !important;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-bottom: 2px #2c44a7 solid !important;
+    color: #000 !important;
+}
+
+.box-number-reply {
+    border: 2px solid #12ad50;
+    color: #12ad50 !important;
+    padding: 3px 7px;
+    border-radius: 0.375rem;
+}
+
+.box-number-reply.done {
+    gap: 5px;
+    color: #fff !important;
+    background-color: #12ad50;
+}
+.btn-question {
+    font-size: 17px;
+}
+
+.btn-custom,
+.btn-question {
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.btn-custom:hover,
+.btn-question {
+    cursor: pointer;
+    color: #fff !important;
+    background-color: #12ad50;
+}

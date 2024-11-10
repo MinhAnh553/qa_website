@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-        avatar: String,
+        avatar: {
+            type: String,
+            default: '/images/avatar.png',
+        },
         points: {
             type: Number,
             default: 0,

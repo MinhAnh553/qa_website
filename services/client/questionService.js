@@ -316,15 +316,23 @@ const getReplyByUser = async (req, res) => {
 const deleteQuestion = async (req, res) => {
     const id = req.params.id;
     const userId = res.locals.user.id;
-    const result = await questionModel.updateOne(
-        {
-            _id: id,
-            user_id: userId,
-        },
-        {
-            deleted: true,
-        },
-    );
+
+    const user = await userModel
+        .findOne({
+            _id: userId,
+        })
+        .select('isAdmin');
+
+    let find = {
+        _id: id,
+    };
+    if (user.isAdmin != 1) {
+        find.user_id = userId;
+    }
+
+    const result = await questionModel.updateOne(find, {
+        deleted: true,
+    });
 
     if (result.modifiedCount > 0) {
         return 'OK';
@@ -337,15 +345,21 @@ const editQuestion = async (req, res) => {
     const id = req.params.id;
     const data = req.body;
     const userId = res.locals.user.id;
-    const result = await questionModel.updateOne(
-        {
-            _id: id,
-            user_id: userId,
-        },
-        {
-            ...data,
-        },
-    );
+    const user = await userModel
+        .findOne({
+            _id: userId,
+        })
+        .select('isAdmin');
+
+    let find = {
+        _id: id,
+    };
+    if (user.isAdmin != 1) {
+        find.user_id = userId;
+    }
+    const result = await questionModel.updateOne(find, {
+        ...data,
+    });
 
     if (result.modifiedCount > 0) {
         return 'OK';
