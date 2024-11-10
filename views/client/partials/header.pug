@@ -10,11 +10,11 @@ header(class="fixed-top")
                     a(href="/question/ask" class="nav-link px-2") Đặt Câu Hỏi
                 li
                     a(href="/chat" class="nav-link px-2") Chat GPT
-            form(class="col-5")
+            form(class="col-5" action="/question/search" method="GET")
                 div(class="input-group")
                     span(class="input-group-text bg-white")
                         i(class="fas fa-search")
-                    input(type="search" style="outline: none; box-shadow: none" class="form-control border-0" placeholder="Tìm kiếm câu hỏi" autocomplete="off")
+                    input(type="search" name="query" style="outline: none; box-shadow: none" class="form-control border-0" placeholder="Tìm kiếm câu hỏi" autocomplete="off")
             div(class="text-end ms-auto dropdown dropdown-hover p-3")
                 if(user)
                     div(class="d-flex align-items-center gap-2 " style="color: white; font-weight: 600;")

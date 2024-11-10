@@ -192,6 +192,50 @@ const postEditReply = async (req, res) => {
     }
 };
 
+// [GET] /question/search
+const searchQuestion = async (req, res) => {
+    const keyword = req.query.query;
+
+    // Kiểm tra nếu không có từ khóa
+    if (!keyword) {
+        return res.json([]);
+    }
+
+    try {
+        const questions = await questionModel
+            .find({
+                description: { $regex: keyword, $options: 'i' },
+                deleted: false, // Chỉ lấy câu hỏi chưa bị xóa
+            })
+            .limit(10); // Giới hạn số lượng kết quả trả về
+
+        // Định dạng dữ liệu trả về chỉ gồm description và images
+        // const results = questions.map((question) => ({
+        //     description: question.description,
+        //     images: question.images,
+        // }));
+        for (const question of questions) {
+            const user = await userModel
+                .findOne({
+                    _id: question.user_id,
+                    deleted: false,
+                })
+                .select('fullName avatar');
+
+            question.user = user;
+        }
+
+        // res.json(results);
+        res.render('client/pages/question/search', {
+            pageTitle: 'Tìm kiếm câu hỏi',
+            questions,
+        });
+    } catch (error) {
+        console.error('Error searching questions:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
 export default {
     questionPage,
     detailPage,
@@ -206,4 +250,5 @@ export default {
     deleteReply,
     editReply,
     postEditReply,
+    searchQuestion,
 };

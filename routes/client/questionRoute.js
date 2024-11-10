@@ -14,6 +14,11 @@ Router.route('/').get(
     questionController.questionPage,
 );
 
+Router.route('/search').get(
+    rankingMiddleware.getRanking,
+    questionController.searchQuestion,
+);
+
 Router.route('/delete/:id').delete(
     authMiddleware.isAuthorized,
     questionController.deleteQuestion,
