@@ -60,6 +60,19 @@ Router.route('/reply/delete/:id').delete(
     questionController.deleteReply,
 );
 
+Router.route('/reply/edit/:id')
+    .get(
+        authMiddleware.isAuthorized,
+        rankingMiddleware.getRanking,
+        questionController.editReply,
+    )
+    .patch(
+        authMiddleware.isAuthorized,
+        fileUpload.single('images'),
+        uploadCloudMiddleware.uploadCloud,
+        questionController.postEditReply,
+    );
+
 Router.route('/reply/:id').post(
     authMiddleware.isAuthorized,
     fileUpload.single('images'),

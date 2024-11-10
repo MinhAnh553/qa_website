@@ -374,6 +374,30 @@ const deleteReply = async (req, res) => {
     return 'OK';
 };
 
+const editReply = async (req, res) => {
+    const replyId = req.params.id;
+    const userId = res.locals.user.id;
+    const data = req.body;
+
+    const question = await questionModel.findOne({
+        'reply._id': replyId,
+        'reply.user_id': userId,
+    });
+
+    const reply = question.reply.find(
+        (r) => r._id.toString() === replyId && r.user_id === userId,
+    );
+    if (reply) {
+        reply.description = data.description;
+        if (data.images) {
+            reply.images = data.images;
+        }
+    }
+
+    await question.save();
+    return 'OK';
+};
+
 export default {
     getAllQuestion,
     getQuestionbyId,
@@ -385,4 +409,5 @@ export default {
     deleteQuestion,
     editQuestion,
     deleteReply,
+    editReply,
 };

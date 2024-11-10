@@ -13,11 +13,11 @@ block main
                         i(class="fas fa-arrow-left")
                         | Quay lại
                     div(class="question-card card container")
-                        if(question)
+                        if(reply)
                             div(class="card-body")
-                                h3(class="mb-4") Chỉnh sửa câu hỏi
+                                h3(class="mb-4") Chỉnh sửa câu trả lời
                                 form(
-                                    action=`/question/edit/${question.id}?_method=PATCH`
+                                    action=`/question/reply/edit/${reply.id}?_method=PATCH`
                                     method="POST"
                                     enctype="multipart/form-data"
                                 )
@@ -27,7 +27,7 @@ block main
                                             class="form-control tinymce"
                                             name="description"
                                             rows="5"
-                                        ) #{question.description}
+                                        ) #{reply.description}
                                     div(
                                         class="form-group"
                                         upload-image
@@ -41,13 +41,13 @@ block main
                                             accept="image/*"
                                             upload-image-input
                                         )
-                                        if(question.images.length <= 0)
+                                        if(reply.images.length <= 0)
                                             image(
                                                 class="image-preview"
                                                 src=""
                                                 upload-image-preview
                                             )
-                                        each image in question.images
+                                        each image in reply.images
                                             image(
                                                 class="image-preview image-edit"
                                                 src=image

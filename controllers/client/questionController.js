@@ -158,6 +158,40 @@ const deleteReply = async (req, res) => {
     }
 };
 
+// [GET] /question/reply/edit/:id
+const editReply = async (req, res) => {
+    try {
+        const replyId = req.params.id;
+        const userId = res.locals.user.id;
+        const question = await questionModel.findOne({
+            'reply._id': replyId,
+            'reply.user_id': userId,
+        });
+        const reply = question.reply.find(
+            (r) => r._id.toString() === replyId && r.user_id === userId,
+        );
+        res.render('client/pages/question/editReply', {
+            pageTitle: 'Chỉnh sửa câu trả lời',
+            reply,
+        });
+    } catch (error) {}
+};
+
+// [PATCH] /question/reply/edit/:id
+const postEditReply = async (req, res) => {
+    try {
+        const result = await questionService.editReply(req, res);
+        // res.status(StatusCodes[result]).json({
+        //     message: result.message,
+        // });
+        res.redirect('back');
+    } catch (error) {
+        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
+            message: 'Server Error!',
+        });
+    }
+};
+
 export default {
     questionPage,
     detailPage,
@@ -170,4 +204,6 @@ export default {
     editQuestion,
     postEditQuestion,
     deleteReply,
+    editReply,
+    postEditReply,
 };
