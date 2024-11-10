@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema(
         fullName: String,
         email: String,
         password: String,
+        isAdmin: {
+            type: Number,
+            default: 0,
+        },
         avatar: String,
         points: {
             type: Number,

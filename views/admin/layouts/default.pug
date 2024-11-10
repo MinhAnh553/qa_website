@@ -1,0 +1,39 @@
+doctype html
+html    
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(http-equiv="x-ua-compatible" content="ie=edge")
+        title #{pageTitle}
+        // Font Awesome
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css")
+        // Bootstrap core CSS
+        link(href="/admin/css/bootstrap.min.css" rel="stylesheet")
+        // Material Design Bootstrap
+        link(href="/admin/css/mdb.min.css" rel="stylesheet")
+        // Sweetalert
+        script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+        // Your custom styles (optional)
+        link(href="/admin/css/style.min.css" rel="stylesheet")
+
+    body(class="grey lighten-3")
+        include ../partials/header.pug
+
+        main(class="pt-5 mx-lg-5")
+            div(class="container-fluid mt-5")
+                block main
+
+        include ../partials/footer.pug
+
+        
+        // JQuery
+        script(type="text/javascript" src="/admin/js/jquery-3.4.1.min.js")
+        // Bootstrap tooltips
+        script(type="text/javascript" src="/admin/js/popper.min.js")
+        // Bootstrap core JavaScript
+        script(type="text/javascript" src="/admin/js/bootstrap.min.js")
+        // MDB core JavaScript
+        script(type="text/javascript" src="/admin/js/mdb.min.js")
+
+        script(type="module" src="/admin/js/script.js")
+        block script

@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug
+include ../../mixins/ranking.pug
+
+block main
+    // Grid row
+    form(action="" method="GET", class="mb-4")
+        .row(class="d-flex justify-content-center align-items-center")
+            .col-md-8
+                input(type="text", name="email", class="form-control", placeholder="Nhập email để tìm kiếm")
+
+            .col-md-4
+                button(type="submit", class="btn btn-primary") Tìm kiếm
+
+    // Hiển thị bảng người dùng
+    table.table.table-striped
+        thead
+          tr
+            th STT
+            th Tên người dùng
+            th Email
+            th Trạng thái
+            th Lượt like
+            th Points
+            th Thao tác
+        tbody
+            if(users)
+                each user, index in users
+                    tr
+                    td= index +1
+                    td= user.fullName
+                    td= user.email
+                    td
+                        // Trạng thái
+                        if user.status === 'active'
+                            span(class="badge bg-success") Active
+                        else
+                            span(class="badge bg-danger") Inactive
+                    td= user.likes
+                    td= user.points
+                    td
+                        // Nút sửa và xóa
+                        a(href=`${prefixAdmin}/user/edit/${user.id}`, class="btn btn-warning btn-sm me-2")
+                            i(class="fas fa-edit") Sửa
+                        a(href=`${prefixAdmin}/user/delete/${user.id}`, class="btn btn-danger btn-sm ml-2 btn-delete-user")
+                            i(class="fas fa-trash-alt") Xóa
+    //- div(class="row wow fadeIn")
+    //-     // Grid column
+    //-     div(class="col-md-6 mb-4")
+    //-         // Card
+    //-         div(class="card")
+    //-             // Card content
+    //-             div(class="card-body")
+                    
+    //-     // Grid column
+    //-     div(class="col-md-6 mb-4")
+    //-         // Card
+    //-         div(class="card")
+    //-             // Card content
+    //-             div(class="card-body")
+                    

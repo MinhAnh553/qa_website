@@ -17,6 +17,8 @@ import cookieParser from 'cookie-parser';
 import { Server } from 'socket.io';
 import { createServer } from 'node:http';
 import { clientRoute } from './routes/client/indexRoute.js';
+import { adminRoute } from './routes/admin/indexRoute.js';
+import system from './config/system.js';
 
 // env
 dotenv.config();
@@ -64,6 +66,7 @@ database.connect();
 // Biến
 moment.locale('vi');
 app.locals.moment = moment;
+app.locals.prefixAdmin = system.prefixAdmin;
 
 /* New Route to the TinyMCE Node module */
 app.use(
@@ -75,6 +78,7 @@ app.use(
 
 // Route
 app.use(clientRoute);
+app.use(adminRoute);
 
 // Socket
 const server = createServer(app);

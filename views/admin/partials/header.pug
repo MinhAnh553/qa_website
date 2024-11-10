@@ -1,0 +1,43 @@
+header
+    // Navbar
+    nav(class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar")
+        div(class="container-fluid")
+            // Brand
+            a(class="navbar-brand waves-effect" href="/" target="_blank")
+                strong(class="blue-text") QA
+            // Collapse
+            button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                span(class="navbar-toggler-icon")
+            // Links
+            #navbarSupportedContent(class="collapse navbar-collapse")
+                // Left
+                ul(class="navbar-nav mr-auto")
+                    li(class="nav-item active")
+                        a(class="nav-link waves-effect" href=`${prefixAdmin}/dashboard`)
+                            | Dashboard
+                    li(class="nav-item")
+                        a(class="nav-link waves-effect" href=`${prefixAdmin}/user`)
+                            | Quản lý người dùng
+                    li(class="nav-item")
+                        a(class="nav-link waves-effect" href=`${prefixAdmin}/question`)
+                            | Quản lý câu hỏi
+    // Sidebar
+    div(class="sidebar-fixed position-fixed")
+        a(class="logo-wrapper waves-effect")
+            img(src="/images/logo.png" class="img-fluid" style="width: 100px")
+        div(class="list-group list-group-flush")
+            a(href=`${prefixAdmin}/dashboard` class="list-group-item list-group-item-action waves-effect")
+                i(class="fas fa-chart-pie mr-3")
+                | Dashboard
+            a(href=`${prefixAdmin}/user` class="list-group-item list-group-item-action waves-effect")
+                i(class="fas fa-user mr-3")
+                | Quản lý người dùng
+            a(href=`${prefixAdmin}/question` class="list-group-item list-group-item-action waves-effect")
+                i(class="fas fa-table mr-3")
+                | Quản lý câu hỏi
+            //- a(href="#" class="list-group-item list-group-item-action waves-effect")
+            //-     i(class="fas fa-map mr-3")
+            //-     | Maps
+            //- a(href="#" class="list-group-item list-group-item-action waves-effect")
+            //-     i(class="fas fa-money-bill-alt mr-3")
+            //-     | Orders

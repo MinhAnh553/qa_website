@@ -110,7 +110,6 @@ const getUserByid = async (id) => {
 const editInfo = async (req, res) => {
     try {
         const data = req.body;
-        console.log('MinhAnh553: editInfo -> data', data);
         await userModel.updateOne(
             {
                 _id: res.locals.user.id,
