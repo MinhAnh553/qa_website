@@ -158,7 +158,7 @@ if (buttonVote) {
             };
 
             const response = await fetch(`/question/reply/vote`, {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -302,4 +302,24 @@ if (btnDeleteQuestion) {
             });
         });
     });
+}
+
+// Search Question
+const formSearch = document.querySelector('.form-search');
+if (formSearch) {
+    const input = formSearch.querySelector('[name="query"]');
+    formSearch.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value != '') {
+            formSearch.submit();
+        }
+    });
+    const buttonSearch = formSearch.querySelector('.button-search');
+    if (buttonSearch) {
+        buttonSearch.addEventListener('click', (e) => {
+            if (input.value != '') {
+                formSearch.submit();
+            }
+        });
+    }
 }

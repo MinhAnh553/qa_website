@@ -198,7 +198,7 @@ const searchQuestion = async (req, res) => {
 
     // Kiểm tra nếu không có từ khóa
     if (!keyword) {
-        return res.json([]);
+        return;
     }
 
     try {
@@ -229,6 +229,7 @@ const searchQuestion = async (req, res) => {
         res.render('client/pages/question/search', {
             pageTitle: 'Tìm kiếm câu hỏi',
             questions,
+            keyword,
         });
     } catch (error) {
         console.error('Error searching questions:', error);
