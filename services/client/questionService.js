@@ -71,7 +71,7 @@ const getQuestionbyId = async (req, res) => {
         .select('fullName avatar');
 
     question.user = user;
-
+    question.reply = question.reply.filter((reply) => reply.deleted !== true);
     for (const reply of question.reply) {
         const user = await userModel
             .findOne({

@@ -298,3 +298,9 @@ header .nav li a:hover {
     color: blueviolet;
     font-weight: 500;
 }
+
+@media (max-width: 1400px) {
+    .navbar-custom {
+        display: none;
+    }
+}
