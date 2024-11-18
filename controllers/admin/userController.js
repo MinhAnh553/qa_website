@@ -6,10 +6,12 @@ import userService from '../../services/admin/userService.js';
 const userdPage = async (req, res) => {
     try {
         const users = await userService.getAllUser(req, res);
+        const key = req.query.email;
 
         res.render('admin/pages/user/index', {
             pageTitle: 'Người dùng',
             users,
+            key,
         });
     } catch (error) {}
 };

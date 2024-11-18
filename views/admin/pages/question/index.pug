@@ -2,6 +2,13 @@ extends ../../layouts/default.pug
 
 block main
     if(questions != "")
+        form(action="" method="GET" class="mb-4")
+            .row(class="d-flex justify-content-center align-items-center")
+                .col-md-8
+                    input(type="text" name="query" class="form-control" value=keyword placeholder="Nhập từ khóa cần tìm kiếm")
+
+                .col-md-4
+                    button(type="submit" class="btn btn-primary") Tìm kiếm
         //- div(class="card-header forum-card-img-30 d-flex justify-content-start gap-3 align-items-center border-0")
         //-     div(class="d-flex justify-content-between align-items-center" style="width: 100%;")
         //-         strong
