@@ -144,8 +144,9 @@ const getUserPage = async (req, res) => {
             result: result,
         });
     } catch (error) {
-        res.status(StatusCodes.SERVICE_UNAVAILABLE).json({
-            message: 'Server Error!',
+        return res.status(404).render('client/pages/error/404.pug', {
+            pageTitle: 'Không tìm thấy trang',
+            message: 'Người dùng không tồn tại!',
         });
     }
 };

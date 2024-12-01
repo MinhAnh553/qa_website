@@ -21,7 +21,12 @@ const questionPage = async (req, res) => {
 const detailPage = async (req, res) => {
     try {
         const question = await questionService.getQuestionbyId(req, res);
-
+        if (!question) {
+            return res.status(404).render('client/pages/error/404.pug', {
+                pageTitle: 'Không tìm thấy trang',
+                message: 'Câu hỏi bạn tìm không tồn tại!',
+            });
+        }
         res.render('client/pages/question/detail', {
             pageTitle: 'Hỏi đáp',
             question: question,
@@ -125,7 +130,12 @@ const editQuestion = async (req, res) => {
             pageTitle: 'Chỉnh sửa câu hỏi',
             question,
         });
-    } catch (error) {}
+    } catch (error) {
+        res.status(404).render('client/pages/error/404.pug', {
+            pageTitle: 'Không tìm thấy trang',
+            message: 'Câu hỏi bạn tìm không tồn tại!',
+        });
+    }
 };
 
 // [PATCH] /question/edit/:id

@@ -9,7 +9,7 @@ const userdPage = async (req, res) => {
         const key = req.query.email;
 
         res.render('admin/pages/user/index', {
-            pageTitle: 'Người dùng',
+            pageTitle: 'Quản lý người dùng',
             users,
             key,
         });

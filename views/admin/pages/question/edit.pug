@@ -1,0 +1,58 @@
+extends ../../layouts/default.pug
+
+block main
+    div
+        a(href=`${prefixAdmin}/question` class="btn btn-secondary mb-2")
+            i(class="fas fa-arrow-left")
+            | Quay lại
+        div(class="question-card card container")
+            if(question)
+                div(class="card-body")
+                    h3(class="mb-4") Chỉnh sửa câu hỏi
+                    form(
+                        action=`/question/edit/${question.id}?_method=PATCH`
+                        method="POST"
+                        enctype="multipart/form-data"
+                    )
+                        div(class="form-group")
+                            textarea(
+                                type="text"
+                                class="form-control tinymce"
+                                name="description"
+                                rows="5"
+                            ) #{question.description}
+                        div(
+                            class="form-group"
+                            upload-image
+                        )
+                            label(for="images" class="p-1") Ảnh
+                            input(
+                                type="file"
+                                class="form-control"
+                                id="images"
+                                name="images"
+                                accept="image/*"
+                                upload-image-input
+                            )
+                            if(question.images.length <= 0)
+                                image(
+                                    class="image-preview"
+                                    src=""
+                                    upload-image-preview
+                                )
+                            each image in question.images
+                                image(
+                                    class="image-preview image-edit"
+                                    src=image
+                                    upload-image-preview
+                                )
+
+                        div(class="form-group mt-3")
+                            button(
+                                type="submit"
+                                class="btn btn-primary"
+                            ) Xác nhận
+
+block script
+    script(src="/tinymce/tinymce.min.js")
+    script(src="/js/client/tinymce-config.js")          

@@ -3,7 +3,7 @@ include ../../mixins/box-head.pug
 
 block main  
     section
-        div(class="container py-5")
+        div(class="container-fluid py-5")
             div(class="row d-flex justify-content-center")
                 div(class="col-md-10 col-lg-8 col-xl-6")
                     #chat2(class="card chat")
@@ -41,7 +41,7 @@ block main
                         ) 
                             div(class="card-footer text-muted d-flex justify-content-start align-items-center p-3")
                             
-                                img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp" alt="avatar 3" style="width: 40px; height: 100%;")
+                                img(src=user.avatar alt="avatar 3" style="width: 40px; height: 100%;")
                             
                                 input(
                                     class="form-control form-control-lg"

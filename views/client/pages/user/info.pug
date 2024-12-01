@@ -28,7 +28,7 @@ block main
                             //- span
                             //-     i(class="fas fa-wallet text-success")
                             //-     | Số dư: 10.000 đ
-                if(user)
+                if(user && user.id == userInfo.id)
                     // Edit Button 
                     a(href="/user/edit-info")
                         button(class="btn btn-light btn-sm p-2 px-3" style="background: #dee0e1; color: rgb(82 82 82); font-weight: 500;")

@@ -1,0 +1,62 @@
+doctype html
+html(lang="vi")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title 404 Not Found
+        style.
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+            
+            body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            }
+            
+            .error-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            color: #e74c3c;
+            }
+            
+            .error-message {
+            font-size: 20px;
+            margin: 20px 0;
+            }
+            
+            .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            }
+            
+            .home-link:hover {
+            background-color: #2980b9;
+            }
+    body
+        div(class="error-container")
+            h1(class="error-code") 404
+            p(class="error-message") #{message || 'Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần!'}
+            a(href="/" class="home-link") Trở về trang chủ

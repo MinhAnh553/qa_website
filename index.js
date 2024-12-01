@@ -85,6 +85,10 @@ const server = createServer(app);
 const io = new Server(server);
 global._io = io;
 
+app.get('*', (req, res) => {
+    res.render('client/pages/error/404.pug');
+});
+
 server.listen(port, () => {
     console.log(`Project back-end running at http://localhost:${port}...`);
 });
