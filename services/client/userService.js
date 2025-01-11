@@ -55,7 +55,7 @@ const login = async (data, res) => {
         if (!user) {
             return { message: 'Tài khoản không tồn tại trong hệ thống!' };
         }
-        if (user.status == 'unActive') {
+        if (user.status == 'inactive') {
             return { message: 'Tài khoản đã bị cấm!' };
         }
 

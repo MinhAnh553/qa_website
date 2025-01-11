@@ -1,20 +1,20 @@
 extends ../../layouts/default.pug
 
 block main
-    if(questions != "")
-        div(class="card-body")
-            div(class="row mb-3")
-                div(class="col-md-2")
-                    div(class="d-flex align-items-center")
-                        a(href="?deleted=true" class="btn btn-primary") 
-                            i(class="fa-solid fa-trash mr-1")
-                            | Đã xóa
-                div(class="col-md-10 text-end")
-                    div(class="input-group" style="width: 300px; float: right;")
-                        span(class="input-group-text") Search:
-                        form(class="" action="" method="GET")   
-                            input(type="text" name="query" class="form-control" placeholder="Tìm kiếm câu hỏi" autocomplete="off" value=keyword)
-                
+    
+    div(class="card-body")
+        div(class="row mb-3")
+            div(class="col-md-2")
+                div(class="d-flex align-items-center")
+                    a(href="?deleted=true" class="btn btn-primary") 
+                        i(class="fa-solid fa-trash mr-1")
+                        | Đã xóa
+            div(class="col-md-10 text-end")
+                div(class="input-group" style="width: 300px; float: right;")
+                    span(class="input-group-text") Search:
+                    form(class="" action="" method="GET")   
+                        input(type="text" name="query" class="form-control" placeholder="Tìm kiếm câu hỏi" autocomplete="off" value=keyword)
+    if(questions != "")            
         each question in questions
             div(class="question-card card mb-3")
                 // Card header

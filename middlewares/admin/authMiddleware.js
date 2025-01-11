@@ -14,7 +14,7 @@ const isAuthorized = async (req, res, next) => {
             process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
         );
         const user = await userService.getUserByid(accessTokenDecoded.id);
-        if (user.isAdmin != 1) {
+        if (user?.isAdmin != 1) {
             res.redirect(`/`);
             return;
         }

@@ -183,6 +183,7 @@ const editReply = async (req, res) => {
         res.render('client/pages/question/editReply', {
             pageTitle: 'Chỉnh sửa câu trả lời',
             reply,
+            question,
         });
     } catch (error) {}
 };
