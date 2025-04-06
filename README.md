@@ -10,6 +10,8 @@ Một website hỏi đáp (Hỏi & Trả lời) được xây dựng với Node.
 - **Authentication**: JSON Web Token (JWT)
 - **AI Support**: OpenAI API
 - **Others**: Cloudinary (lưu trữ ảnh), Viewer.js (xem ảnh)
+  
+---
 
 ## ✨ Tính năng chính
 
@@ -29,9 +31,3 @@ Một website hỏi đáp (Hỏi & Trả lời) được xây dựng với Node.
 git clone https://github.com/MinhAnh553/qa_website.git
 cd qa_website
 ```
-
-
-
-
-
-
